@@ -30,7 +30,9 @@ response = client.describe_instances()
 count0 = len(response['Reservations'])  #counts how many instances are returned
 
 
-
+###########################################################################
+################ Run through all instances in returned ####################
+###########################################################################
 
 for x in range(0,count0):
     inst_id = response['Reservations'][x]['Instances'][0]['InstanceId']
@@ -56,11 +58,16 @@ for x in range(0,count0):
     count1 = len(sg_response['SecurityGroups'])
    
     for y in range(0,count1):
-        # if a security group belongs to the same vpc as an instance, it will check there group names against instance tags
+        # if a security group belongs to the same vpc as an instance, it will added them to the list sg_vpc
         if sg_response['SecurityGroups'][y]['VpcId'] == vpc_id:
             sg_vpc.append(sg_response['SecurityGroups'][y]['GroupId'])
             #print(sg_response['SecurityGroups'][y]['GroupName']
             i_dict[inst_id] = []
+
+###########################################################################
+################# Start searching for matching tags #######################             #if adding a new tag seach, create a list variable in top for loop
+###########################################################################
+
             if sg_response['SecurityGroups'][y]['GroupName'] == 'WFE-SG':               # Searches for Web front end
                 wfe_id = (sg_response['SecurityGroups'][y]['GroupId'])
                 for tag in tags:
@@ -88,6 +95,10 @@ for x in range(0,count0):
                         sg_inst.append(windows_id)
                     else:
                         continue
+
+###########################################################################
+################### End search for matching tags #########################
+###########################################################################
 
     i_dict.get(inst_id, []).append(sg_inst)                
     #print(i_dict[inst_id][0])
