@@ -47,17 +47,21 @@ for x in range(0,count0):
     sg_wfe = []                 # contains security group id of vpc's web front end security group
     sg_vpc = []                 # contains all security groups in vpc
     sg_inst = []                # list of security groups, this will become the value in the dictonary
-    #print(vpc_id)
+
+###########################################################################
+############# Grab a list of all security groups in region ################
+###########################################################################
+
     sg_response = client.describe_security_groups()
-    #print(sg_response)
     count1 = len(sg_response['SecurityGroups'])
    
     for y in range(0,count1):
+        # if a security group belongs to the same vpc as an instance, it will check there group names against instance tags
         if sg_response['SecurityGroups'][y]['VpcId'] == vpc_id:
             sg_vpc.append(sg_response['SecurityGroups'][y]['GroupId'])
             #print(sg_response['SecurityGroups'][y]['GroupName']
             i_dict[inst_id] = []
-            if sg_response['SecurityGroups'][y]['GroupName'] == 'WFE-SG':
+            if sg_response['SecurityGroups'][y]['GroupName'] == 'WFE-SG':               # Searches for Web front end
                 wfe_id = (sg_response['SecurityGroups'][y]['GroupId'])
                 for tag in tags:
                     #print(tag)
@@ -66,7 +70,7 @@ for x in range(0,count0):
                         sg_inst.append(wfe_id)
                     else:
                         continue                      
-            if sg_response['SecurityGroups'][y]['GroupName'] == 'LINUX-SG':
+            if sg_response['SecurityGroups'][y]['GroupName'] == 'LINUX-SG':             # Searches for linux
                 linux_id = sg_response['SecurityGroups'][y]['GroupId']
                 for tag in tags:
                         #print(tag)
@@ -75,7 +79,7 @@ for x in range(0,count0):
                         sg_inst.append(linux_id)
                     else:
                         continue
-            if sg_response['SecurityGroups'][y]['GroupName'] == 'WINDOWS-SG':
+            if sg_response['SecurityGroups'][y]['GroupName'] == 'WINDOWS-SG':           # Searches for windows
                 windows_id = sg_response['SecurityGroups'][y]['GroupId']
                 for tag in tags:
                         #print(tag)
@@ -84,14 +88,15 @@ for x in range(0,count0):
                         sg_inst.append(windows_id)
                     else:
                         continue
+
     i_dict.get(inst_id, []).append(sg_inst)                
     #print(i_dict[inst_id][0])
-    if i_dict[inst_id][0] != []:
-        print(inst_id)
-        sg_list = i_dict[inst_id][0]
-        print(sg_list)
-        #sg_instance = ec2.Instance(inst_id)
-        #sg_instance.modify_attribute(Groups=sg_list)
+    if i_dict[inst_id][0] != []:                                                        # For instances with empty security groups skip
+        #print(inst_id)
+        sg_list = i_dict[inst_id][0]                                                    # security group list is made from list in dictonary
+        #print(sg_list)
+        sg_instance = ec2.Instance(inst_id)                                            # Select instance 
+        sg_instance.modify_attribute(Groups=sg_list)                                   # Update instances using list
     else:
         continue
 
