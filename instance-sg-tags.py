@@ -21,9 +21,13 @@ client = boto3.client('ec2',
 )
 
 
+###########################################################################
+################ Grab a list of all instances in region ###################
+###########################################################################
+
 response = client.describe_instances()
 
-count0 = len(response['Reservations'])
+count0 = len(response['Reservations'])  #counts how many instances are returned
 
 
 
@@ -34,15 +38,15 @@ for x in range(0,count0):
     instance = ec2.Instance(inst_id)
     tags = instance.tags
     vpc = instance.vpc
-    vpc_str = str(vpc)
-    vpc_id = vpc_str[12:33]
-    i = []
-    i_dict = {}
-    sg_linux = []
-    sg_windows = []
-    sg_wfe = []
-    sg_vpc = []
-    sg_inst = []
+    vpc_str = str(vpc)          # converts aws source to string
+    vpc_id = vpc_str[12:33]     # pulls just the vpc_id out of the string
+    i = []                      # contains the instance id of instances with tags
+    i_dict = {}                 # creates a dictonary, which contains instance id as keyword, and list of security group id's as value
+    sg_linux = []               # contains security group id of vpc's linux security group
+    sg_windows = []             # contains security group id of vpc's windows security group
+    sg_wfe = []                 # contains security group id of vpc's web front end security group
+    sg_vpc = []                 # contains all security groups in vpc
+    sg_inst = []                # list of security groups, this will become the value in the dictonary
     #print(vpc_id)
     sg_response = client.describe_security_groups()
     #print(sg_response)
@@ -90,4 +94,8 @@ for x in range(0,count0):
         #sg_instance.modify_attribute(Groups=sg_list)
     else:
         continue
+
+
+
+
 
