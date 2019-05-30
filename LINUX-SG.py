@@ -4,11 +4,11 @@ from botocore.exceptions import ClientError
 ### User definedvars
 region = 'us-east-2'
 group_name = 'LINUX-SG'
-env_name = 'USE2-SB-LINUX'
+env_name = 'USE2-SB-LAB1'
 
 #aws_access_key = sys.argv[1]
 #aws_secret_key = sys.argv[2]
-
+description = '{0} {1}'.format(env_name, 'linux instance security group')
 
 ec2 = boto3.resource('ec2',
             #aws_access_key_id = aws_access_key ,
@@ -48,7 +48,7 @@ vpc = ec2.Vpc(vpc_id[0])
 ###########################################################################
 
 security_group = vpc.create_security_group(
-            Description='Linux base security groups',
+            Description=description,
             GroupName=group_name,
             DryRun=False,
 )
@@ -98,7 +98,7 @@ data = security_group.authorize_ingress(
             'FromPort': 22,
              'ToPort': 22,
              'IpRanges': [{
-             'CidrIp': '24.0.0.0/16', 
+             'CidrIp': '24.63.0.0/16', 
              'Description': 'Lab CIDR'}]},
             {'IpProtocol': '-1',
             'FromPort': -1,
