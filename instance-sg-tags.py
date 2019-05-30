@@ -49,6 +49,7 @@ for x in range(0,count0):
     sg_wfe = []                 # contains security group id of vpc's web front end security group
     sg_vpc = []                 # contains all security groups in vpc
     sg_inst = []                # list of security groups, this will become the value in the dictonary
+    sg_default = []
 
 ###########################################################################
 ############# Grab a list of all security groups in region ################
@@ -76,8 +77,9 @@ for x in range(0,count0):
                         i.append(inst_id)
                         sg_inst.append(wfe_id)
                     else:
-                        continue                      
-            if sg_response['SecurityGroups'][y]['GroupName'] == 'LINUX-SG':             # Searches for linux
+                        continue
+
+            if sg_response['SecurityGroups'][y]['GroupName'] == 'LINUX-SG':             # Searches for linux instances
                 linux_id = sg_response['SecurityGroups'][y]['GroupId']
                 for tag in tags:
                         #print(tag)
@@ -86,13 +88,24 @@ for x in range(0,count0):
                         sg_inst.append(linux_id)
                     else:
                         continue
-            if sg_response['SecurityGroups'][y]['GroupName'] == 'WINDOWS-SG':           # Searches for windows
+
+            if sg_response['SecurityGroups'][y]['GroupName'] == 'WINDOWS-SG':           # Searches for windows instances
                 windows_id = sg_response['SecurityGroups'][y]['GroupId']
                 for tag in tags:
                         #print(tag)
                     if tag['Key'] == 'security:windows' and tag['Value'] == 'true':
                         i.append(inst_id)
                         sg_inst.append(windows_id)
+                    else:
+                        continue
+
+            if sg_response['SecurityGroups'][y]['GroupName'] == 'default':           # Searches for windows instances
+                default_id = sg_response['SecurityGroups'][y]['GroupId']
+                for tag in tags:
+                        #print(tag)
+                    if tag['Key'] == 'security:default' and tag['Value'] == 'true':
+                        i.append(inst_id)
+                        sg_inst.append(default_id)
                     else:
                         continue
 
