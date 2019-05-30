@@ -70,42 +70,42 @@ for x in range(0,count0):
 ###########################################################################
 
             if sg_response['SecurityGroups'][y]['GroupName'] == 'WFE-SG':               # Searches for Web front end
-                wfe_id = (sg_response['SecurityGroups'][y]['GroupId'])
+                gid = (sg_response['SecurityGroups'][y]['GroupId'])
                 for tag in tags:
                     #print(tag)
                     if tag['Key'] == 'security:wfe' and tag['Value'] == 'true':
                         i.append(inst_id)
-                        sg_inst.append(wfe_id)
+                        sg_inst.append(gid)
                     else:
                         continue
 
             if sg_response['SecurityGroups'][y]['GroupName'] == 'LINUX-SG':             # Searches for linux instances
-                linux_id = sg_response['SecurityGroups'][y]['GroupId']
+                gid = sg_response['SecurityGroups'][y]['GroupId']
                 for tag in tags:
                         #print(tag)
                     if tag['Key'] == 'security:linux' and tag['Value'] == 'true':
                         i.append(inst_id)
-                        sg_inst.append(linux_id)
+                        sg_inst.append(gid)
                     else:
                         continue
 
             if sg_response['SecurityGroups'][y]['GroupName'] == 'WINDOWS-SG':           # Searches for windows instances
-                windows_id = sg_response['SecurityGroups'][y]['GroupId']
+                gid = sg_response['SecurityGroups'][y]['GroupId']
                 for tag in tags:
                         #print(tag)
                     if tag['Key'] == 'security:windows' and tag['Value'] == 'true':
                         i.append(inst_id)
-                        sg_inst.append(windows_id)
+                        sg_inst.append(gid)
                     else:
                         continue
 
             if sg_response['SecurityGroups'][y]['GroupName'] == 'default':           # Searches for windows instances
-                default_id = sg_response['SecurityGroups'][y]['GroupId']
+                gid = sg_response['SecurityGroups'][y]['GroupId']
                 for tag in tags:
                         #print(tag)
                     if tag['Key'] == 'security:default' and tag['Value'] == 'true':
                         i.append(inst_id)
-                        sg_inst.append(default_id)
+                        sg_inst.append(gid)
                     else:
                         continue
 
