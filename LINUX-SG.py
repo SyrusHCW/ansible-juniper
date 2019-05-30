@@ -1,10 +1,20 @@
 import boto3
 from botocore.exceptions import ClientError
+import sys
 
 ### User definedvars
 region = 'us-east-2'
 group_name = 'LINUX-SG'
 env_name = 'USE2-SB-LAB1'
+
+IpPermissions=[{'IpProtocol': 'tcp',
+    'FromPort': 22,
+    'ToPort': 22,
+    'IpRanges': [{
+    'CidrIp': '24.63.0.0/16', 
+    'Description': 'Lab CIDR'}]},
+    ]
+
 
 #aws_access_key = sys.argv[1]
 #aws_secret_key = sys.argv[2]
@@ -46,7 +56,7 @@ vpc = ec2.Vpc(vpc_id[0])
 ###########################################################################
 ####### Uncomment if you are creating a new security-group ################
 ###########################################################################
-
+"""
 security_group = vpc.create_security_group(
             Description=description,
             GroupName=group_name,
@@ -55,7 +65,7 @@ security_group = vpc.create_security_group(
 
 sg = str(security_group)
 sg_id = sg[22:42]
-
+"""
 ##########################################################################
 ##########################################################################
 ##########################################################################
@@ -84,28 +94,25 @@ security_group = ec2.SecurityGroup(sg_id[0])
 ##########################################################################
 
 # First, we remove all existing rules in the group:
-#security_group.revoke_ingress(IpPermissions=security_group.ip_permissions)
+security_group.revoke_ingress(IpPermissions=security_group.ip_permissions)
 
 
 ##########################################################################
 ########################### Security group rules #########################
 ##########################################################################
 
+sg_rule={'IpProtocol': '-1',
+    'FromPort': -1,
+    'ToPort': -1,
+    'UserIdGroupPairs': [{
+    'GroupId': sg_id[0]}]}                              #This will permit hosts, in this security group to talk to themselves
+
+IpPermissions.append(sg_rule)
+
 #Second, we re-apply the rules
 data = security_group.authorize_ingress(
-        IpPermissions=[
-            {'IpProtocol': 'tcp',
-            'FromPort': 22,
-             'ToPort': 22,
-             'IpRanges': [{
-             'CidrIp': '24.63.0.0/16', 
-             'Description': 'Lab CIDR'}]},
-            {'IpProtocol': '-1',
-            'FromPort': -1,
-             'ToPort': -1,
-             'UserIdGroupPairs': [{
-             'GroupId': sg_id[0]}]}                              #This will permit hosts, in this security group to talk to themselves
-            ])
+        IpPermissions=IpPermissions)
+
 
 value = '{0}{1}{2}'.format(env_name, '-', group_name)
 
