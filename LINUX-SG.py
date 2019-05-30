@@ -1,18 +1,14 @@
 import boto3
 from botocore.exceptions import ClientError
 
-###vars
-sg_id = ''
-vpc_id = ''
+### User definedvars
 region = 'us-east-2'
+group_name = 'LINUX-SG'
+env_name = 'USE2-SB-LINUX'
 
 #aws_access_key = sys.argv[1]
 #aws_secret_key = sys.argv[2]
 
-
-###########################################################################
-####### Uncomment if you are creating a new security-group ################
-###########################################################################
 
 ec2 = boto3.resource('ec2',
             #aws_access_key_id = aws_access_key ,
@@ -20,12 +16,40 @@ ec2 = boto3.resource('ec2',
             region_name = region,
 )
 
-vpc = ec2.Vpc(vpc_id)
+client = boto3.client('ec2',
+            #aws_access_key_id = aws_access_key ,
+            #aws_secret_access_key = aws_secret_key ,
+            region_name = region,
+)
 
+
+vpc_name = '{0}{1}'.format(env_name, '-VPC')
+vpc_id = []
+
+response = client.describe_vpcs()
+
+count0 = len(response['Vpcs'])
+
+response['Vpcs'][1]['Tags'][0]['Key']
+
+for x in range(0,count0):
+    count1 = len(response['Vpcs'][x]['Tags'])
+    #print(count1)
+    for y in range(0,count1):
+        if response['Vpcs'][x]['Tags'][y]['Key'] == 'Name' and response['Vpcs'][x]['Tags'][y]['Value'] == vpc_name:
+            vpc_id.append(response['Vpcs'][x]['VpcId'])
+        else:
+            continue
+
+vpc = ec2.Vpc(vpc_id[0])
+
+###########################################################################
+####### Uncomment if you are creating a new security-group ################
+###########################################################################
 
 security_group = vpc.create_security_group(
-            Description='Linux instance security groups',
-            GroupName='LINUX-SG',
+            Description='Linux base security groups',
+            GroupName=group_name,
             DryRun=False,
 )
 
@@ -36,7 +60,24 @@ sg_id = sg[22:42]
 ##########################################################################
 ##########################################################################
 
-security_group = ec2.SecurityGroup(sg_id)
+sg_name = '{0}{1}'.format(env_name, group_name)
+
+sg_id = []
+
+response = client.describe_security_groups()
+
+count3 = len(response['SecurityGroups'])
+
+for x in range(0,count3):
+    count4 = len(response['SecurityGroups'])
+    for y in range(0,count4):
+        if response['SecurityGroups'][y]['VpcId'] ==  vpc_id[0] and response['SecurityGroups'][y]['GroupName'] == group_name:
+            sg_id.append(response['SecurityGroups'][y]['GroupId'])
+        else:
+            continue   
+#print(sg_id[0])
+
+security_group = ec2.SecurityGroup(sg_id[0])
 
 ##########################################################################
 ################# comment out if creating new security-group #############
@@ -57,21 +98,24 @@ data = security_group.authorize_ingress(
             'FromPort': 22,
              'ToPort': 22,
              'IpRanges': [{
-             'CidrIp': '24.63.0.0/16', 
+             'CidrIp': '24.0.0.0/16', 
              'Description': 'Lab CIDR'}]},
             {'IpProtocol': '-1',
             'FromPort': -1,
              'ToPort': -1,
              'UserIdGroupPairs': [{
-             'GroupId': sg_id}]}                              #This will permit hosts, in this security group to talk to themselves
+             'GroupId': sg_id[0]}]}                              #This will permit hosts, in this security group to talk to themselves
             ])
+
+value = '{0}{1}{2}'.format(env_name, '-', group_name)
 
 tag = security_group.create_tags(
         DryRun=False,
         Tags=[
         {
             'Key': 'Name',
-            'Value': 'USE2-SB-LINUX-SG'
+            'Value': value
         },
     ]
 )
+
