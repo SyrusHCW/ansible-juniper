@@ -1,6 +1,6 @@
 ---
 - name: Configure Juniper Access Switch
-  hosts: MFD325-CSW1
+  hosts: MFD325-MDF-CSW1
   connection: local
   gather_facts: no
   roles:
@@ -10,14 +10,15 @@
   
     - build_dir: '/tmp/'
       
-
-
+    - switch_vars:
+        - irb_net_oct: "{{ irb_net_oct }}"
+          irb_prefix: "{{ irb_prefix }}"
 
   tasks:
 
     - name: Build JunOS System config
-      template: src=irb.set.j2 dest={{build_dir}}/irb.set
-      with_items: "{{ hostvars['MFD325-CSW1']['interface'] }}"
+      template: src=lab/templates/irb.set.j2 dest={{build_dir}}/irb.set
+      with_items: switch_vars
 
 
     - name: Apply System config
