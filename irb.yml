@@ -17,7 +17,7 @@
 
     - name: Build JunOS System config
       template: src=irb.set.j2 dest={{build_dir}}/irb.set
-      with_dict: "{{ hostvars[interface]['MFD325-CSW1'] }}"
+      with_dict: "{{ hostvars['MFD325-CSW1'][interface] }}"
 
 
     - name: Apply System config
