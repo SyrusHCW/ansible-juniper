@@ -10,16 +10,14 @@
   
     - build_dir: '/tmp/'
       
-    - switch_vars:
-        - irb_net_oct: "{{ irb_net_oct }}"
-          irb_prefix: "{{ irb_prefix }}"
+
 
 
   tasks:
 
     - name: Build JunOS System config
       template: src=irb.set.j2 dest={{build_dir}}/irb.set
-      with_items: switch_vars
+      with_items: hostvars
 
 
     - name: Apply System config
