@@ -1,3 +1,3 @@
-{% for item in switchvars %}
+{% for item in switch_vars %}
 set interfaces irb unit {{ item.irb_prefix }}55 family inet address 169.254.55.{{ irb_net_oct }}/30
 {% endfor %}
