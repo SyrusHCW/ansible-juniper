@@ -10,7 +10,7 @@
   
     - build_dir: '/tmp/'
   
-
+    - irb_prefix: "{{ hostvars['irb_prefix'] }}"
     - irb_net_oct: "{{ hostvars['irb_net_oct'] }}"
 
     - switch_vars:
