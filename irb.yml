@@ -10,16 +10,15 @@
   
     - build_dir: '/tmp/'
   
-    - irb_prefix: "{{ interface.irb_prefix }}"
-    - irb_net_oct: "{{ interface.irb_net_oct }}"
+
+    - irb_net_oct: "{{ hostvars['irb_net_oct'] }}"
 
     - switch_vars:
         - irb_net_oct: "{{ irb_net_oct }}"
           irb_prefix: "{{ irb_prefix }}"
           #vlan_id: "{{ vlan_id }}"
           #role: "{{ role }}"
-      with_items: 
-         - "{{ irb }}"
+
 
   tasks:
 
