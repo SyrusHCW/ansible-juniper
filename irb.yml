@@ -15,7 +15,8 @@
           irb_prefix: "{{ irb_prefix }}"
           #vlan_id: "{{ vlan_id }}"
           #role: "{{ role }}"
-      with_items: "{{ irb }}"
+      with_items: 
+         - "{{ irb }}"
 
   tasks:
 
