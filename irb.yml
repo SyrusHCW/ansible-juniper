@@ -17,7 +17,7 @@
   tasks:
 
     - name: Build JunOS System config
-      template: src=lab/templates/irb.set.j2 dest={{build_dir}}/irb.set
+      template: src=irb.set.j2 dest={{build_dir}}/irb.set
       with_items: switch_vars
 
 
