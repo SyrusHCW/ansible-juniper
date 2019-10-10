@@ -17,7 +17,7 @@
 
     - name: Build JunOS System config
       template: src=irb.set.j2 dest={{build_dir}}/irb.set
-      with_items: hostvars
+      with_dict: hostvars
 
 
     - name: Apply System config
