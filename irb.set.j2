@@ -1,4 +1,5 @@
 {% for i in switch_vars %}
+set interfaces {{ i.interface }} unit 12{{ i.vlan_id }} description "MFD325-MDF-DSW1 int ge-0/0/0 {{ i.role }}"
 set interfaces irb unit {{ i.irb_prefix }}{{ i.vlan_id }} description "MFD325-MDF-FW1 int ethernet1/3 {{ i.role }}"
 set interfaces irb unit {{ i.irb_prefix }}{{ i.vlan_id }} family inet address 169.254.{{ i.vlan_id }}.{{ i.irb_net_oct }}/30
 set vlans trust_{{ i.role }}_palo_p2p vlan-id {{ i.irb_prefix }}{{ i.vlan_id }}
