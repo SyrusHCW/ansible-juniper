@@ -13,29 +13,65 @@
       config_file: 'irb.set'
 
     - csw1_vars:
-        - irb_net_oct: "{{ irb_net_oct }}"
-          irb_prefix: "{{ irb_prefix }}"
+        - irb_net_oct: "{{ irb_net_oct1 }}"
+          irb_prefix: "{{ irb_prefix1 }}"
           vlan_id: "{{ vlan_id }}"
           role: "{{ role }}"
           ospf_md5: "{{ ospf_md5 }}"
-          ge_0_0_2_octet: "{{ ge_0_0_2_octet }}"
-          ge_0_0_2_prefix: "{{ ge_0_0_2_prefix }}"
-          ge_0_0_3_octet: "{{ ge_0_0_3_octet }}"
-          ge_0_0_3_prefix: "{{ ge_0_0_3_prefix }}"
+          ge_0_0_2_octet: "{{ ge_0_0_2_octet1 }}"
+          ge_0_0_2_prefix: "{{ ge_0_0_2_prefix1 }}"
+          ge_0_0_3_octet: "{{ ge_0_0_3_octet1 }}"
+          ge_0_0_3_prefix: "{{ ge_0_0_3_prefix1 }}"
 
+    - csw2_vars:
+        - irb_net_oct: "{{ irb_net_oct2 }}"
+          irb_prefix: "{{ irb_prefix2 }}"
+          vlan_id: "{{ vlan_id }}"
+          role: "{{ role }}"
+          ospf_md5: "{{ ospf_md5 }}"
+          ge_0_0_2_octet: "{{ ge_0_0_2_octet2 }}"
+          ge_0_0_2_prefix: "{{ ge_0_0_2_prefix2 }}"
+          ge_0_0_3_octet: "{{ ge_0_0_3_octet2 }}"
+          ge_0_0_3_prefix: "{{ ge_0_0_3_prefix2 }}"
+          
   hosts: MFD325-MDF-FW1_ACCESS_VSYS
   tasks:
 
     - name: Create Palo Alto Template Network Configuration
       script: palo-fabric.py {{ palo_username }} '{{ palo_password }}' {{ vlan_id }} {{ eth1_1_prefix }} {{ eth1_1_octet }} {{ eth1_2_prefix }} {{ eth1_2_octet }} {{ pa_template }} {{ virtual_router }} {{ vsys_name }} {{ zone_name }} 
 
-  hosts: core_switches	
+  hosts: MFD325-MDF-CSW1
   tasks:	
   
           
     - name: Build Core Switch Configuration	
       template: src=irb.set.j2 dest={{build_dir}}/irb.set	
-      with_items: csw_vars	
+      with_items: csw1_vars	
+
+    - name: Apply Core Switch Configuration	
+      juniper_junos_config:	
+        load: 'merge'	
+        file: "{{ build_dir }}{{ config_file }}"	
+        host: "{{ inventory_hostname }}"	
+        confirm: 3	
+        check_commit_wait: 3	
+
+    - name: Wait to confirm no communication loss	
+      pause:	
+        seconds: 10	
+
+
+    - name: Commit Configuration	
+      juniper_junos_config:	
+        commit_empty_changes: true  
+
+  hosts: MFD325-MDF-CSW=2
+  tasks:	
+  
+          
+    - name: Build Core Switch Configuration	
+      template: src=irb.set.j2 dest={{build_dir}}/irb.set	
+      with_items: csw2_vars	
 
     - name: Apply Core Switch Configuration	
       juniper_junos_config:	
