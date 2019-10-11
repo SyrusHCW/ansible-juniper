@@ -15,13 +15,14 @@ password = sys.argv[2]
 vlan_id = sys.argv[3]
 eth1_1_prefix = sys.argv[4]
 eth1_1_octet = sys.argv[5]
-template = sys.argv[6]
-virtual_router = sys.argv[7]
-vsys_name = sys.argv[8]
-zone_name = sys.argv[9]
+eth1_2_prefix = sys.argv[6]
+eth1_2_octet = sys.argv[7]
+template = sys.argv[8]
+virtual_router = sys.argv[9]
+vsys_name = sys.argv[10]
+zone_name = sys.argv[11]
 
 panorama_instance = firewall.Firewall(panorama_dns, username, password)
-
 
 ip_addr1 = '{0}{1}{2}{3}{4}'.format('169.254.', vlan_id, '.', eth1_1_octet, '/30')
 ip_addr2 = '{0}{1}{2}{3}{4}'.format('169.254.', vlan_id, '.', eth1_2_octet, '/30')
