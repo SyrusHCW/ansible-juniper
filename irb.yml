@@ -70,7 +70,7 @@
   
           
     - name: Build Core Switch Configuration	
-      template: src=irb.set2.j2 dest={{build_dir}}/irb.set	
+      template: src=irb2.set.j2 dest={{build_dir}}/irb.set	
       with_items: csw2_vars	
 
     - name: Apply Core Switch Configuration	
