@@ -20,8 +20,8 @@ set routing-instances vr-trust_{{ i.role }} interface xe-0/0/12.{{ i.xe_0_0_12_p
 set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/13.{{ i.xe_0_0_13_prefix  }}{{ i.vlan_id }} interface-type p2p
 set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/13.{{ i.xe_0_0_13_prefix  }}{{ i.vlan_id }} hello-interval 3 dead-interval 12 
 set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/13.{{ i.xe_0_0_13_prefix  }}{{ i.vlan_id }} authentication md5 1 key {{ i.ospf_md5}}
-set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/13.{{ i.xe_0_0_13_prefix  }}{{ i.vlan_id }} 
-set routing-instances vr-trust_{{ i.role }} interface xe-0/0/13.{{ i.xe_0_0_13_prefix  }}{{ i.vlan_id }} bfd-liveness-detection minimum-interval 1500 multiplier 4 full-neighbors-only
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/13.{{ i.xe_0_0_13_prefix  }}{{ i.vlan_id }}  bfd-liveness-detection minimum-interval 1500 multiplier 4 full-neighbors-only
+set routing-instances vr-trust_{{ i.role }} interface xe-0/0/13.{{ i.xe_0_0_13_prefix  }}{{ i.vlan_id }}
 set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ i.vlan_id }} interface-type p2p
 set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ i.vlan_id }} hello-interval 3 dead-interval 12 
 set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ i.vlan_id }} authentication md5 1 key {{ i.ospf_md5}}
