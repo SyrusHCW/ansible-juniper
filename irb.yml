@@ -61,9 +61,6 @@
       juniper_junos_config:	
         commit_empty_changes: true  
 
-  hosts: MFD325-MDF-CSW2
-  tasks:	
-  
           
     - name: Build Core Switch Configuration	
       template: src=irb2.set.j2 dest={{build_dir}}/irb.set	
