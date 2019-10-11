@@ -31,7 +31,6 @@
 
     - name: Apply System config
       juniper_junos_config:
-        config_mode: 'private'
         load: 'merge'
         file: "{{ build_dir }}{{ config_file }}"
         host: "{{ inventory_hostname }}"
