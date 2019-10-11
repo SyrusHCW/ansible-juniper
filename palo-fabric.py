@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from pandevice import firewall
 from pandevice import network
 from pandevice import policies
