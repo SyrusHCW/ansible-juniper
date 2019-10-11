@@ -35,4 +35,5 @@
         load: 'merge'
         file: "{{ build_dir }}{{ config_file }}"
         host: "{{ inventory_hostname }}"
-        confirmed:
+        confirm: 5
+        check_commit_wait: 3
