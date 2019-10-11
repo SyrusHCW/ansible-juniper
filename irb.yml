@@ -35,3 +35,4 @@
         load: 'merge'
         file: "{{ build_dir }}{{ config_file }}"
         host: "{{ inventory_hostname }}"
+        confirmed:
