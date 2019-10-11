@@ -22,18 +22,20 @@
           xe_0_0_12_prefix: "{{ xe_0_0_12_prefix }}"
           xe_0_0_13_octet: "{{ xe_0_0_13_octet }}"
           xe_0_0_13_prefix: "{{ xe_0_0_13_prefix }}"
-          
+
+  hosts: DBY289-LAB-FW1
   tasks:
-    - hosts: DBY289-LAB-FW1
+
     - name: Create VPC VPN and Panorama Config
       script: palo-fabric.py {{ palo_username }} '{{ palo_password }}' {{ vlan_id }} {{ eth1_23_prefix }} {{ eth1_23_octet }} {{ pa_template }} {{ virtual_router }} {{ vsys_name }} {{ zone_name }} 
 
-    - hosts: MFD325-CSW1
+  hosts: MFD325-CSW1
+  tasks:
+  
     - name: Build JunOS System config
       template: src=irb.set.j2 dest={{build_dir}}/irb.set
       with_items: csw1_vars
-
-    - hosts: MFD325-CSW1
+  
     - name: Apply System config
       juniper_junos_config:
         load: 'merge'
@@ -45,8 +47,7 @@
     - name: Pause
       pause:
         minutes: 1
-
-    - hosts: MFD325-CSW1
+  
     - name: Apply System config
       juniper_junos_config:
         commit_empty_changes: true
