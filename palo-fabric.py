@@ -9,7 +9,7 @@ import pan.xapi
 import sys
 
 #vars
-panorma_dns = '18.214.36.168'
+panorama_dns = '18.214.36.168'
 username = sys.argv[1]
 password = sys.argv[2]
 vlan_id = sys.argv[3]
