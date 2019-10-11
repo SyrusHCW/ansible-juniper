@@ -29,4 +29,8 @@
 
 
     - name: Apply System config
-      junos_install_config: host={{ inventory_hostname }} file={{ build_dir }}irb.set overwrite=no timeout=300
+      juniper_junos_config:
+        config_mode: 'private'
+        load: 'merge'
+        src: {{ build_dir }}irb.set
+        host: {{ inventory_hostname }}
