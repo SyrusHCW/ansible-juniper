@@ -39,11 +39,7 @@
 
     - name: Create Palo Alto Template Network Configuration
       script: palo-fabric.py {{ palo_username }} '{{ palo_password }}' {{ vlan_id }} {{ eth1_1_prefix }} {{ eth1_1_octet }} {{ eth1_2_prefix }} {{ eth1_2_octet }} {{ pa_template }} {{ virtual_router }} {{ vsys_name }} {{ zone_name }} 
-
-  hosts: MFD325-MDF-CSW1
-  tasks:	
-  
-          
+            
     - name: Build Core Switch Configuration	
       template: src=irb1.set.j2 dest={{build_dir}}/irb.set	
       with_items: csw1_vars	
@@ -52,7 +48,7 @@
       juniper_junos_config:	
         load: 'merge'	
         file: "{{ build_dir }}{{ config_file }}"	
-        host: "{{ inventory_hostname }}"	
+        host: MFD325-MDF-CSW1	
         confirm: 3	
         check_commit_wait: 3	
 
@@ -77,7 +73,7 @@
       juniper_junos_config:	
         load: 'merge'	
         file: "{{ build_dir }}{{ config_file }}"	
-        host: "{{ inventory_hostname }}"	
+        host: MFD325-MDF-CSW2	
         confirm: 3	
         check_commit_wait: 3	
 
