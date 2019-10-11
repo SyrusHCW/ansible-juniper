@@ -26,7 +26,7 @@
   hosts: MFD325-MDF-FW1_ACCESS_VSYS
   tasks:
 
-    - name: Create VPC VPN and Panorama Config
+    - name: Create Palo Alto Template Network Configuration
       script: palo-fabric.py {{ palo_username }} '{{ palo_password }}' {{ vlan_id }} {{ eth1_1_prefix }} {{ eth1_1_octet }} {{ eth1_2_prefix }} {{ eth1_2_octet }} {{ pa_template }} {{ virtual_router }} {{ vsys_name }} {{ zone_name }} 
 
   hosts: core_switches
@@ -36,7 +36,7 @@
       template: src=irb.set.j2 dest={{build_dir}}/irb.set
       with_items: csw_vars
   
-    - name: Apply System config
+    - name: Apply Core Switch Configuration
       juniper_junos_config:
         load: 'merge'
         file: "{{ build_dir }}{{ config_file }}"
@@ -44,11 +44,11 @@
         confirm: 3
         check_commit_wait: 3
 
-    - name: Pause
+    - name: Wait to confirm no communication loss
       pause:
         seconds: 10
   
-    - name: Apply System config
+    - name: Commit Configuration
       juniper_junos_config:
         commit_empty_changes: true
         
