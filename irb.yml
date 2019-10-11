@@ -39,5 +39,5 @@
         
     - name: Apply System config
       juniper_junos_config:
-        commit: true
+        commit_empty_changes: true
         
