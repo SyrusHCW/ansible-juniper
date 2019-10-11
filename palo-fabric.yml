@@ -4,10 +4,6 @@
   roles:
     - role: paloaltonetworks.paloaltonetworks
     
-  vars:
-    #- pa_template: "{{ template }}"
-    
-    
   tasks:
 
     - name: Create VPC VPN and Panorama Config
