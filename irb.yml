@@ -26,17 +26,17 @@
   tasks:
     
     - name: Create VPC VPN and Panorama Config
-      when: ansible_hostname == ‘DBY289-LAB-FW1’
+      when: ansible_hostname == 'DBY289-LAB-FW1'
       script: palo-fabric.py {{ palo_username }} '{{ palo_password }}' {{ vlan_id }} {{ eth1_23_prefix }} {{ eth1_23_octet }} {{ pa_template }} {{ virtual_router }} {{ vsys_name }} {{ zone_name }} 
 
     - name: Build JunOS System config
-      when: ansible_hostname == ‘MFD325-CSW1’
+      when: ansible_hostname == 'MFD325-CSW1'
       template: src=irb.set.j2 dest={{build_dir}}/irb.set
       with_items: csw1_vars
 
 
     - name: Apply System config
-      when: ansible_hostname == ‘MFD325-CSW1’
+      when: ansible_hostname == 'MFD325-CSW1'
       juniper_junos_config:
         load: 'merge'
         file: "{{ build_dir }}{{ config_file }}"
@@ -49,7 +49,7 @@
         minutes: 1
     
     - name: Apply System config
-      when: ansible_hostname == ‘MFD325-CSW1’
+      when: ansible_hostname == 'MFD325-CSW1'
       juniper_junos_config:
         commit_empty_changes: true
         
