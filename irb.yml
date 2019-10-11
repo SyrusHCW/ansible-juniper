@@ -1,5 +1,6 @@
 ---
 - name: Configure Juniper Access Switch
+  hosts: access_fabric
   connection: local
   gather_facts: no
   roles:
