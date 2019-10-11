@@ -9,6 +9,7 @@
   vars:
   
     - build_dir: '/tmp/'
+      config_file: 'irb.set'
 
     - csw1_vars:
         - irb_net_oct: "{{ irb_net_oct }}"
@@ -32,5 +33,5 @@
       juniper_junos_config:
         config_mode: 'private'
         load: 'merge'
-        src: "{{ build_dir }}"/irb.set
+        file: "{{ build_dir }}{{ config_file }}"
         host: "{{ inventory_hostname }}"
