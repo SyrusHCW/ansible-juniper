@@ -34,7 +34,6 @@
           ge_0_0_3_octet: "{{ ge_0_0_3_octet2 }}"
           ge_0_0_3_prefix: "{{ ge_0_0_3_prefix2 }}"
           
-  hosts: MFD325-MDF-FW1_ACCESS_VSYS
   tasks:
 
     - name: Create Palo Alto Template Network Configuration
