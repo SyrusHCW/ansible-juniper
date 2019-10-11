@@ -7,4 +7,4 @@
   tasks:
 
     - name: Create VPC VPN and Panorama Config
-      script: palo-fabric.py {{ panorama_dns }} {{ palo_username }} '{{ palo_password }}' {{ vlan_id }} {{ eth1_23_prefix }} {{ eth1_23_octet }} {{ template }} {{ virtual_router }} {{ vsys_name }} {{ zone_name }} 
+      script: palo-fabric.py {{ palo_username }} '{{ palo_password }}' {{ vlan_id }} {{ eth1_23_prefix }} {{ eth1_23_octet }} {{ template }} {{ virtual_router }} {{ vsys_name }} {{ zone_name }} 
