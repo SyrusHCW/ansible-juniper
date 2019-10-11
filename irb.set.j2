@@ -6,7 +6,11 @@ set interfaces xe-0/0/12 unit {{ i.xe_0_0_12_prefix }}{{ i.vlan_id }} vlan-id {{
 set interfaces xe-0/0/12 unit {{ i.xe_0_0_12_prefix }}{{ i.vlan_id }} family inet address 169.254.{{ i.vlan_id }}.{{ i.xe_0_0_12_octet }}/30
 set routing-instances vr-trust_{{ i.role }} instance-type virtual-router
 set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/12.{{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }} interface-type p2p
-set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ i.vlan_id }} interface-type p2p
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/12.{{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }} hello-interval 3 dead-interval 12 
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/12.{{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }} authentication md5 1 key {{ i.ospf_auth}}
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ item.vlan_id }} interface-type p2p
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ item.vlan_id }} hello-interval 3 dead-interval 12 
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ item.vlan_id }} authentication md5 1 key {{ i.ospf_auth}}
 set routing-instances vr-trust_{{ i.role }} interface xe-0/0/12.{{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }}
 set routing-instances vr-trust_{{ i.role }} interface irb.{{ i.irb_prefix }}{{ i.vlan_id }}
 set interfaces xe-0/0/13 vlan-tagging
