@@ -4,15 +4,6 @@ set interfaces xe-0/0/12 mtu 9192
 set interfaces xe-0/0/12 unit {{ i.xe_0_0_12_prefix }}{{ i.vlan_id }} description "MFD325-MDF-DSW1 int xe-0/0/0 {{ i.role }}"
 set interfaces xe-0/0/12 unit {{ i.xe_0_0_12_prefix }}{{ i.vlan_id }} vlan-id {{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }}
 set interfaces xe-0/0/12 unit {{ i.xe_0_0_12_prefix }}{{ i.vlan_id }} family inet address 169.254.{{ i.vlan_id }}.{{ i.xe_0_0_12_octet }}/30
-set routing-instances vr-trust_{{ i.role }} instance-type virtual-router
-set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/12.{{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }} interface-type p2p
-set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/12.{{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }} hello-interval 3 dead-interval 12 
-set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/12.{{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }} authentication md5 1 key {{ i.ospf_md5}}
-set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ i.vlan_id }} interface-type p2p
-set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ i.vlan_id }} hello-interval 3 dead-interval 12 
-set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ i.vlan_id }} authentication md5 1 key {{ i.ospf_md5}}
-set routing-instances vr-trust_{{ i.role }} interface xe-0/0/12.{{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }}
-set routing-instances vr-trust_{{ i.role }} interface irb.{{ i.irb_prefix }}{{ i.vlan_id }}
 set interfaces xe-0/0/13 vlan-tagging
 set interfaces xe-0/0/13 mtu 9192
 set interfaces xe-0/0/13 unit {{ i.xe_0_0_13_prefix }}{{ i.vlan_id }} description "MFD325-MDF-DSW1 int xe-1/0/0 {{ i.role }}"
@@ -20,6 +11,19 @@ set interfaces xe-0/0/13 unit {{ i.xe_0_0_13_prefix }}{{ i.vlan_id }} vlan-id {{
 set interfaces xe-0/0/13 unit {{ i.xe_0_0_13_prefix }}{{ i.vlan_id }} family inet address 169.254.{{ i.vlan_id }}.{{ i.xe_0_0_13_octet }}/30
 set interfaces irb unit {{ i.irb_prefix }}{{ i.vlan_id }} description "MFD325-MDF-FW1 int ethernet1/3 {{ i.role }}"
 set interfaces irb unit {{ i.irb_prefix }}{{ i.vlan_id }} family inet address 169.254.{{ i.vlan_id }}.{{ i.irb_net_oct }}/30
+set routing-instances vr-trust_{{ i.role }} instance-type virtual-router
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/12.{{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }} interface-type p2p
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/12.{{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }} hello-interval 3 dead-interval 12 
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/12.{{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }} authentication md5 1 key {{ i.ospf_md5}}
+set routing-instances vr-trust_{{ i.role }} interface xe-0/0/12.{{ i.xe_0_0_12_prefix  }}{{ i.vlan_id }}
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/13.{{ i.xe_0_0_13_prefix  }}{{ i.vlan_id }} interface-type p2p
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/13.{{ i.xe_0_0_13_prefix  }}{{ i.vlan_id }} hello-interval 3 dead-interval 12 
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface xe-0/0/13.{{ i.xe_0_0_13_prefix  }}{{ i.vlan_id }} authentication md5 1 key {{ i.ospf_md5}}
+set routing-instances vr-trust_{{ i.role }} interface xe-0/0/13.{{ i.xe_0_0_13_prefix  }}{{ i.vlan_id }}
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ i.vlan_id }} interface-type p2p
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ i.vlan_id }} hello-interval 3 dead-interval 12 
+set routing-instances vr-trust_{{ i.role }} protocols ospf area 0.0.0.0 interface irb.{{ i.irb_prefix }}{{ i.vlan_id }} authentication md5 1 key {{ i.ospf_md5}}
+set routing-instances vr-trust_{{ i.role }} interface irb.{{ i.irb_prefix }}{{ i.vlan_id }}
 set vlans trust_{{ i.role }}_palo_p2p vlan-id {{ i.irb_prefix }}{{ i.vlan_id }}
 set vlans trust_{{ i.role }}_palo_p2p l3-interface irb.{{ i.irb_prefix }}{{ i.vlan_id }}
 {% endfor %}
