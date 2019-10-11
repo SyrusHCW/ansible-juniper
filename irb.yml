@@ -1,10 +1,11 @@
 ---
 - name: Configure Juniper Access Switch
-  hosts: MFD325-CSW1
+  hosts: fabric
   connection: local
   gather_facts: no
   roles:
     - juniper.junos
+    - paloaltonetworks.paloaltonetworks
     
   vars:
   
@@ -23,6 +24,9 @@
           xe_0_0_13_prefix: "{{ xe_0_0_13_prefix }}"
           
   tasks:
+    
+    - name: Create VPC VPN and Panorama Config
+      script: palo-fabric.py {{ palo_username }} '{{ palo_password }}' {{ vlan_id }} {{ eth1_23_prefix }} {{ eth1_23_octet }} {{ pa_template }} {{ virtual_router }} {{ vsys_name }} {{ zone_name }} 
 
     - name: Build JunOS System config
       template: src=irb.set.j2 dest={{build_dir}}/irb.set
