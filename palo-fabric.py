@@ -20,7 +20,7 @@ virtual_router = sys.argv[7]
 vsys_name = sys.argv[8]
 zone_name = sys.argv[9]
 
-panorama_dns = firewall.Firewall(panorma_dns, username, password)
+panorama_instance = firewall.Firewall(panorma_dns, username, password)
 
 
 ip_addr = '{0}{1}{2}{3}{4}'.format('169.254.', vlan_id, '.', eth1_23_octet, '/30')
@@ -31,7 +31,7 @@ tag = '{0}{1}'.format(eth1_23_prefix, vlan_id)
 
 
 device_template = panorama.Template(template)
-panorama_dns.add(device_template)
+panorama_instance.add(device_template)
 
 vsys = device.Vsys(vsys_name)
 device_template.add(vsys)
