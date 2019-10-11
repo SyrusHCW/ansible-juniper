@@ -5,7 +5,7 @@
     - role: paloaltonetworks.paloaltonetworks
     
   vars:
-    - pa_template: "{{ template }}"
+    #- pa_template: "{{ template }}"
     
     
   tasks:
