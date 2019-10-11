@@ -1,6 +1,5 @@
 ---
 - name: Configure Juniper Access Switch
-  hosts: access_fabric
   connection: local
   gather_facts: no
   roles:
@@ -12,6 +11,18 @@
     - build_dir: '/tmp/'
       config_file: 'irb.set'
 
+
+
+  hosts: MFD325-MDF-FW1_ACCESS_VSYS
+  tasks:
+
+    - name: Create Palo Alto Template Network Configuration
+      script: palo-fabric.py {{ palo_username }} '{{ palo_password }}' {{ vlan_id }} {{ eth1_1_prefix }} {{ eth1_1_octet }} {{ eth1_2_prefix }} {{ eth1_2_octet }} {{ pa_template }} {{ virtual_router }} {{ vsys_name }} {{ zone_name }} 
+
+  hosts: core_switches	
+  tasks:	
+  
+    vars:
     - csw_vars:
         - irb_net_oct: "{{ irb_net_oct }}"
           irb_prefix: "{{ irb_prefix }}"
@@ -22,16 +33,7 @@
           ge_0_0_2_prefix: "{{ ge_0_0_2_prefix }}"
           ge_0_0_3_octet: "{{ ge_0_0_3_octet }}"
           ge_0_0_3_prefix: "{{ ge_0_0_3_prefix }}"
-
-  hosts: MFD325-MDF-FW1_ACCESS_VSYS
-  tasks:
-
-    - name: Create Palo Alto Template Network Configuration
-      script: palo-fabric.py {{ palo_username }} '{{ palo_password }}' {{ vlan_id }} {{ eth1_1_prefix }} {{ eth1_1_octet }} {{ eth1_2_prefix }} {{ eth1_2_octet }} {{ pa_template }} {{ virtual_router }} {{ vsys_name }} {{ zone_name }} 
-
-  hosts: core_switches	
-  tasks:	
-
+          
     - name: Build Core Switch Configuration	
       template: src=irb.set.j2 dest={{build_dir}}/irb.set	
       with_items: csw_vars	
