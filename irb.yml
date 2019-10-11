@@ -17,7 +17,9 @@
           role: "{{ role }}"
           xe_0_0_12_octet: "{{ xe_0_0_12_octet }}"
           xe_0_0_12_prefix: "{{ xe_0_0_12_prefix }}"
-  
+          xe_0_0_13_octet: "{{ xe_0_0_13_octet }}"
+          xe_0_0_13_prefix: "{{ xe_0_0_13_prefix }}"
+          
   tasks:
 
     - name: Build JunOS System config
