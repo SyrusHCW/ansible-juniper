@@ -15,6 +15,7 @@
           irb_prefix: "{{ irb_prefix }}"
           vlan_id: "{{ vlan_id }}"
           role: "{{ role }}"
+          interface: "{{ interface }}"
 
 
   tasks:
