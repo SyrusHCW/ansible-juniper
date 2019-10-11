@@ -15,6 +15,7 @@
           irb_prefix: "{{ irb_prefix }}"
           vlan_id: "{{ vlan_id }}"
           role: "{{ role }}"
+          ospf_md5: "{{ ospf_md5 }}"
           xe_0_0_12_octet: "{{ xe_0_0_12_octet }}"
           xe_0_0_12_prefix: "{{ xe_0_0_12_prefix }}"
           xe_0_0_13_octet: "{{ xe_0_0_13_octet }}"
