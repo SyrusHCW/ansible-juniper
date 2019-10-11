@@ -16,9 +16,6 @@
           vlan_id: "{{ vlan_id }}"
           role: "{{ role }}"
           interface: "{{ interface }}"
-          a:
-             b: &b interface
-             neighbor: !concat [*b, "_neighbor"]
   
   tasks:
 
