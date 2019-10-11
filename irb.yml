@@ -11,8 +11,8 @@
     - build_dir: '/tmp/'
 
     - switch_vars:
-        - irb_net_oct: "{{ 'irb_net_oct' }}"
-          irb_prefix: "{{ 'irb_prefix' }}"
+        - irb_net_oct: "{{ irb_net_oct }}"
+          irb_prefix: "{{ irb_prefix }}"
           vlan_id: "{{ vlan_id }}"
           role: "{{ role }}"
 
