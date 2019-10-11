@@ -15,7 +15,7 @@
           irb_prefix: "{{ irb_prefix }}"
           vlan_id: "{{ vlan_id }}"
           role: "{{ role }}"
-          xe-0_0_12_octet: "{{ xe-0_0_12_octet }}"
+          xe_12_octet: "{{ xe_12_octet }}"
   
   tasks:
 
