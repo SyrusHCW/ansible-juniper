@@ -32,5 +32,5 @@
       juniper_junos_config:
         config_mode: 'private'
         load: 'merge'
-        src: "{{ build_dir }}"irb.set
+        src: "{{ build_dir }}"/irb.set
         host: "{{ inventory_hostname }}"
