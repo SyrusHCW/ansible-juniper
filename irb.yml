@@ -35,8 +35,12 @@
         file: "{{ build_dir }}{{ config_file }}"
         host: "{{ inventory_hostname }}"
         confirm: 3
-        check_commit_wait: 60
-        
+        check_commit_wait: 3
+
+    - name: Pause
+      pause:
+        minutes: 1
+    
     - name: Apply System config
       juniper_junos_config:
         commit_empty_changes: true
