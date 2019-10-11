@@ -20,7 +20,7 @@ virtual_router = sys.argv[7]
 vsys_name = sys.argv[8]
 zone_name = sys.argv[9]
 
-panorama_instance = firewall.Firewall(panorma_dns, username, password)
+panorama_instance = firewall.Firewall(panorama_dns, username, password)
 
 
 ip_addr = '{0}{1}{2}{3}{4}'.format('169.254.', vlan_id, '.', eth1_23_octet, '/30')
