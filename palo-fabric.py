@@ -114,7 +114,7 @@ xapi = pan.xapi.PanXapi(api_username = username, \
 
 # Interface 1
 
-ospf_xml = "<bfd><profile>Inherit-vr-global-setting</profile></bfd><enable>yes</enable><passive>no</passive><gr-delay>10</gr-delay><metric>10</metric><priority>1</priority><hello-interval>3</hello-interval><dead-counts>4</dead-counts><retransmit-interval>5</retransmit-interval><transit-delay>1</transit-delay><link-type><p2p /></link-type>"
+ospf_xml = "<bfd><profile>Inherit-vr-global-setting</profile></bfd><enable>yes</enable><passive>no</passive><authentication>AUTH-OSPF</authentication><gr-delay>10</gr-delay><metric>10</metric><priority>1</priority><hello-interval>3</hello-interval><dead-counts>4</dead-counts><retransmit-interval>5</retransmit-interval><transit-delay>1</transit-delay><link-type><p2p /></link-type>"
 xpath = '{0}{1}{2}{3}{4}{5}{6}'.format("/config/devices/entry[@name='localhost.localdomain']/template/entry[@name='", template, "']/config/devices/entry[@name='localhost.localdomain']/network/virtual-router/entry[@name='", virtual_router, "']/protocol/ospf/area/entry[@name='0.0.0.0']/interface/entry[@name='",interface1, "']")
 
 xapi.set(xpath = xpath, \
@@ -130,7 +130,7 @@ xapi.set(xpath = xpath, \
 
 # Interface 2
 
-ospf_xml = "<bfd><profile>Inherit-vr-global-setting</profile></bfd><enable>yes</enable><passive>no</passive><gr-delay>10</gr-delay><metric>10</metric><priority>1</priority><hello-interval>3</hello-interval><dead-counts>4</dead-counts><retransmit-interval>5</retransmit-interval><transit-delay>1</transit-delay><link-type><p2p /></link-type>"
+ospf_xml = "<bfd><profile>Inherit-vr-global-setting</profile></bfd><enable>yes</enable><passive>no</passive><authentication>AUTH-OSPF</authentication><gr-delay>10</gr-delay><metric>10</metric><priority>1</priority><hello-interval>3</hello-interval><dead-counts>4</dead-counts><retransmit-interval>5</retransmit-interval><transit-delay>1</transit-delay><link-type><p2p /></link-type>"
 xpath = '{0}{1}{2}{3}{4}{5}{6}'.format("/config/devices/entry[@name='localhost.localdomain']/template/entry[@name='", template, "']/config/devices/entry[@name='localhost.localdomain']/network/virtual-router/entry[@name='", virtual_router, "']/protocol/ospf/area/entry[@name='0.0.0.0']/interface/entry[@name='",interface2, "']")
 
 xapi.set(xpath = xpath, \
