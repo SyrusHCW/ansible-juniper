@@ -36,3 +36,8 @@
         host: "{{ inventory_hostname }}"
         confirm: 5
         check_commit_wait: 3
+        
+    - name: Apply System config
+      juniper_junos_config:
+        commit: true
+        
