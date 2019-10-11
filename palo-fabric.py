@@ -10,15 +10,15 @@ import sys
 
 #vars
 panorma_dns = '18.214.36.168'
-username = sys.argv[0]
-password = sys.argv[1]
-vlan_id = sys.argv[2]
-eth1_23_prefix = sys.argv[3]
-eth1_23_octet = sys.argv[4]
-template = sys.argv[5]
-virtual_router = sys.argv[6]
-vsys_name = sys.argv[7]
-zone_name = sys.argv[8]
+username = sys.argv[1]
+password = sys.argv[2]
+vlan_id = sys.argv[3]
+eth1_23_prefix = sys.argv[4]
+eth1_23_octet = sys.argv[5]
+template = sys.argv[6]
+virtual_router = sys.argv[7]
+vsys_name = sys.argv[8]
+zone_name = sys.argv[9]
 
 panorama_dns = firewall.Firewall(panorma_dns, username, password)
 
