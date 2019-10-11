@@ -65,7 +65,7 @@
       juniper_junos_config:	
         commit_empty_changes: true  
 
-  hosts: MFD325-MDF-CSW=2
+  hosts: MFD325-MDF-CSW2
   tasks:	
   
           
