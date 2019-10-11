@@ -10,17 +10,19 @@
   
     - build_dir: '/tmp/'
 
-    - switch_vars:
+    - csw1_vars:
         - irb_net_oct: "{{ irb_net_oct }}"
           irb_prefix: "{{ irb_prefix }}"
           vlan_id: "{{ vlan_id }}"
           role: "{{ role }}"
+          xe-0/0/12_octet: "{{ xe-0/0/12_octet }}"
+          xe-0/0/12_prefix: "{{ xe-0/0/12_prefix }}"
   
   tasks:
 
     - name: Build JunOS System config
       template: src=irb.set.j2 dest={{build_dir}}/irb.set
-      with_items: switch_vars
+      with_items: csw1_vars
 
 
     - name: Apply System config
