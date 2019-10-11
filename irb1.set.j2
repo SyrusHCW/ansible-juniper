@@ -1,4 +1,4 @@
-{% for i in csw_vars %}
+{% for i in csw1_vars %}
 set interfaces ge-0/0/2 vlan-tagging
 set interfaces ge-0/0/2 mtu 9192
 set interfaces ge-0/0/2 unit {{ i.ge_0_0_2_prefix }}{{ i.vlan_id }} description "MFD325-MDF-DSW1 int ge-0/0/0 {{ i.role }}"
