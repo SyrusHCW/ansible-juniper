@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: DBY289-LAB-FW1
   connection: local
 
   roles:
