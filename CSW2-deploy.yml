@@ -1,6 +1,6 @@
 ---
 - name: Deploys new VRF to CSW1
-  hosts: MFD325-MDF-CSW1
+  hosts: MFD325-MDF-CSW2
   connection: local
   gather_facts: no
   roles:
