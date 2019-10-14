@@ -1,6 +1,6 @@
 ---
-- name: Deploys new VRF to CSW2
-  hosts: MFD325-MDF-CSW2
+- name: Deploys new VRF to CSW1
+  hosts: MFD325-MDF-CSW1
   connection: local
   gather_facts: no
   roles:
@@ -12,15 +12,15 @@
       config_file: 'irb.set'
 
     - csw_vars:
-        - irb_net_oct: "{{ hostvars[irb_net_oct] }}"
-          irb_prefix: "{{ hostvars[irb_prefix] }}"
+        - irb_net_oct: "{{ irb_net_oct }}"
+          irb_prefix: "{{ irb_prefix }}"
           vlan_id: "{{ vlan_id }}"
           role: "{{ role }}"
           ospf_md5: "{{ ospf_md5 }}"
-          ge_0_0_2_octet: "{{ hostvars[ge_0_0_2_octet] }}"
-          ge_0_0_2_prefix: "{{ hostvars[ge_0_0_2_prefix] }}"
-          ge_0_0_3_octet: "{{ hostvars[ge_0_0_3_octet] }}"
-          ge_0_0_3_prefix: "{{ hostvars[ge_0_0_3_prefix] }}"
+          ge_0_0_2_octet: "{{ ge_0_0_2_octet }}"
+          ge_0_0_2_prefix: "{{ ge_0_0_2_prefix }}"
+          ge_0_0_3_octet: "{{ ge_0_0_3_octet }}"
+          ge_0_0_3_prefix: "{{ ge_0_0_3_prefix }}"
 
           
   tasks:
