@@ -5,7 +5,7 @@
         msg: play1
   
 - name: CSW1
-  include: CSW1-deploy.yaml
+  include: CSW1-deploy.yml
   
 - name: CSW2
-  include: CSW2-deploy.yaml  
+  include: CSW2-deploy.yml  
