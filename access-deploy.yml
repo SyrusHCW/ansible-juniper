@@ -4,11 +4,8 @@
     - debug:
         msg: play1
   
-  tasks: 
+- name: CSW1
+  include: CSW1-deploy.yaml
   
-    - name: Configure CSW1
-      import_playbook: CSW1-deploy.yaml
-    
-    - name: Configure CSW2
-      import_playbook: CSW2-deploy.yaml    
-    
+- name: CSW2
+  include: CSW2-deploy.yaml  
