@@ -4,9 +4,10 @@
   connection: local
   gather_facts: no
   
-  - name: Configure CSW1
-    import_playbook: CSW1-deploy.yaml
+  tasks: 
+    - name: Configure CSW1
+      import_playbook: CSW1-deploy.yaml
     
-  - name: Configure CSW2
-    import_playbook: CSW2-deploy.yaml    
+    - name: Configure CSW2
+      import_playbook: CSW2-deploy.yaml    
     
