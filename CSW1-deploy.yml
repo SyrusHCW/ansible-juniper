@@ -1,0 +1,45 @@
+---
+- name: Deploys new VRF to CSW1
+  hosts: MFD325-MDF-CSW1
+  connection: local
+  gather_facts: no
+  roles:
+    - juniper.junos
+    
+  vars:
+  
+    - build_dir: '/tmp/'
+      config_file: 'irb.set'
+
+    - csw_vars:
+        - irb_net_oct: "{{ hostvars[irb_net_oct] }}"
+          irb_prefix: "{{ hostvars[irb_prefix] }}"
+          vlan_id: "{{ vlan_id }}"
+          role: "{{ role }}"
+          ospf_md5: "{{ ospf_md5 }}"
+          ge_0_0_2_octet: "{{ hostvars[ge_0_0_2_octet] }}"
+          ge_0_0_2_prefix: "{{ hostvars[ge_0_0_2_prefix] }}"
+          ge_0_0_3_octet: "{{ hostvars[ge_0_0_3_octet] }}"
+          ge_0_0_3_prefix: "{{ hostvars[ge_0_0_3_prefix] }}"
+
+          
+  tasks:
+
+    - name: Build Core Switch Configuration	
+      template: src=irb1.set.j2 dest={{build_dir}}/irb.set	
+      with_items: csw_vars	
+
+    - name: Apply Core Switch Configuration	
+      juniper_junos_config:	
+        load: 'merge'	
+        file: "{{ build_dir }}{{ config_file }}"	
+        confirm: 3	
+        check_commit_wait: 3	
+
+    - name: Wait to confirm no communication loss	
+      pause:	
+        seconds: 10	
+
+    - name: Commit Configuration	
+      juniper_junos_config:	
+        commit_empty_changes: true  
