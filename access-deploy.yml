@@ -1,10 +1,11 @@
 ---
-- name: Deploy a new VRF to Access VSys
-  hosts: access_fabric
-  connection: local
-  gather_facts: no
+- hosts: localhost
+  tasks:
+    - debug:
+        msg: play1
   
   tasks: 
+  
     - name: Configure CSW1
       import_playbook: CSW1-deploy.yaml
     
