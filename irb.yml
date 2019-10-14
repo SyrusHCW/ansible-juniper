@@ -35,13 +35,10 @@
           ge_0_0_3_prefix: "{{ ge_0_0_3_prefix2 }}"
           
   tasks:
-
-    - name: Create Palo Alto Template Network Configuration
-      script: palo-fabric.py {{ palo_username }} '{{ palo_password }}' {{ vlan_id }} {{ eth1_1_prefix }} {{ eth1_1_octet }} {{ eth1_2_prefix }} {{ eth1_2_octet }} {{ pa_template }} {{ virtual_router }} {{ vsys_name }} {{ zone_name }} 
-            
+           
     - name: Build Core Switch Configuration	
       template: src=irb1.set.j2 dest={{build_dir}}/irb.set	
-      with_items: csw1_vars	
+      with_items: groups['core_switches']	
 
     - name: Apply Core Switch Configuration	
       juniper_junos_config:	
@@ -60,24 +57,4 @@
       juniper_junos_config:	
         commit_empty_changes: true  
 
-          
-    - name: Build Core Switch Configuration	
-      template: src=irb2.set.j2 dest={{build_dir}}/irb.set	
-      with_items: csw2_vars	
-
-    - name: Apply Core Switch Configuration	
-      juniper_junos_config:	
-        load: 'merge'	
-        file: "{{ build_dir }}{{ config_file }}"	
-        host: MFD325-MDF-CSW2	
-        confirm: 3	
-        check_commit_wait: 3	
-
-    - name: Wait to confirm no communication loss	
-      pause:	
-        seconds: 10	
-
-
-    - name: Commit Configuration	
-      juniper_junos_config:	
-        commit_empty_changes: true  
+  
