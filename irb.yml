@@ -1,5 +1,5 @@
 - name: Apply configuration
-  hosts: core_switches
+  hosts: MFD325-MDF-CSW1
   gather_facts: False
   tasks:
     - name: Juniper Commit
