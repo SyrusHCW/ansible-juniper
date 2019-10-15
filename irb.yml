@@ -9,4 +9,4 @@
           - set system host-name "{{ hostname }}"
         timeout: 30
         comment: "Push from Ansible"
-        confirm_commit: yes
+        confirm: 3
