@@ -1,11 +1,11 @@
 - name: Apply configuration
   hosts: MFD325-MDF-CSW1
-  gather_facts: False
+  gather_facts: True
   connection: local
   tasks:
     - name: Juniper Commit
       junos_config:
         lines:
-          - set system host-name AMS4-LAB-MX80-01
-        #src_format: set
+          - set system host-name "{{ hostname }}"
+        timeout: 30
         comment: "Push from Ansible"
