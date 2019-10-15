@@ -16,7 +16,7 @@
            
     - name: Build Core Switch Configuration	
       template: src=description.set.j2 dest={{build_dir}}/groups['core_switches'][host].set	
-      with_items: groups['core_switches'][host]
+      with_items: groups['core_switches']
 
     - name: Apply Core Switch Configuration	
       juniper_junos_config:	
