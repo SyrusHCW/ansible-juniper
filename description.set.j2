@@ -1,3 +1,3 @@
 {% for host in groups['core_switches'] %}
-set system host-name "{{ hostvars[host]groups['core_switches'] }}"
+set system host-name "{{ hostvars[host]['hostname'] }}"
 {% endfor %}
