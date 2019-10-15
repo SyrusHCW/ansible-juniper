@@ -19,6 +19,6 @@
       lines:
         - set system host-name hostvars[host]groups['core_switches']
   
-   - name: confirm a previous commit
-     junos_config:
-       confirm_commit: yes
+    - name: confirm a previous commit
+      junos_config:
+        confirm_commit: yes
