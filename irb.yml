@@ -5,12 +5,6 @@
   gather_facts: no
   roles:
     - juniper.junos
-    
-  vars:
-  
-    - build_dir: '/tmp/'
-      config_file: 'irb.set'
-
 
   tasks:
            
@@ -18,7 +12,7 @@
       junos_config:
       lines:
         - set system host-name test
-  
+        
     - name: confirm a previous commit
       junos_config:
         confirm_commit: yes
