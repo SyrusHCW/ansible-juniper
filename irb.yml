@@ -10,3 +10,11 @@
         timeout: 30
         comment: "Push from Ansible"
         confirm: 3
+
+    - name: Wait to confirm no communication loss	
+      pause:	
+        seconds: 10	
+
+    - name: Commit Configuration	
+      junos_config:	
+        confirm_commit: true  
