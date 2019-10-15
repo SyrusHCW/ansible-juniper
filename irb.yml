@@ -8,5 +8,3 @@
           - set system host-name AMS4-LAB-MX80-01
         #src_format: set
         comment: "Push from Ansible"
-        provider:
-          timeout: 60
