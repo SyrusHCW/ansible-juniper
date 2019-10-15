@@ -1,6 +1,6 @@
 ---
 - name: Configure Juniper Access Switch
-  hosts: MFD325-MDF-CSW1
+  hosts: core_switches
   connection: local
   gather_facts: no
   roles:
@@ -14,24 +14,11 @@
 
   tasks:
            
-    - name: Build Core Switch Configuration	
-      template: src=description.set.j2 dest={{build_dir}}/MFD325-MDF-CSW1.set	
-      with_items: hostvars[inventory_hostname]
-
-    - name: Apply Core Switch Configuration	
-      juniper_junos_config:	
-        load: 'merge'	
-        file: "{{ build_dir }}/MFD325-MDF-CSW1.set"
-        confirm: 3	
-        check_commit_wait: 3	
-
-    - name: Wait to confirm no communication loss	
-      pause:	
-        seconds: 10	
-
-
-    - name: Commit Configuration	
-      juniper_junos_config:	
-        commit_empty_changes: true  
-
+    - name: Set VLAN access and trunking
+      junos_config:
+      lines:
+        - set system host-name
   
+   - name: confirm a previous commit
+     junos_config:
+       confirm_commit: yes
