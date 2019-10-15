@@ -1,5 +1,5 @@
-{% for item in groups['core_switches'][host]hostvars %}
-set system name-server "{{ ['dns-servers'][0] }}"
-set system name-server "{{ ['dns-servers'][1] }}"
-set system host-name "{{ ['hostname'] }}"
+{% for item in groups['core_switches'][host] %}
+set system name-server "{{ item.['dns-servers'][0] }}"
+set system name-server "{{ item.['dns-servers'][1] }}"
+set system host-name "{{ item.['hostname'] }}"
 {% endfor %}
