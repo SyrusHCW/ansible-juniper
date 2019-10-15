@@ -1,18 +1,12 @@
----
-- name: Configure Juniper Access Switch
-  hosts: core_switches
-  connection: local
-  gather_facts: no
-  roles:
-    - juniper.junos
-
+- name: Apply configuration
+  hosts: MFD325-MDF-CSW1
+  gather_facts: False
   tasks:
-           
-    - name: Set VLAN access and trunking
+    - name: Juniper Commit
       junos_config:
-      lines:
-        - set system host-name test
-        
-    - name: confirm a previous commit
-      junos_config:
-        confirm_commit: yes
+        lines:
+          - set system host-name AMS4-LAB-MX80-01
+        src_format: set
+        comment: "Push from Ansible"
+        provider:
+          timeout: 60
