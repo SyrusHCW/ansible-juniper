@@ -17,7 +17,7 @@
     - name: Set VLAN access and trunking
       junos_config:
       lines:
-        - set system host-name hostvars[host]groups['core_switches']
+        - set system host-name test
   
     - name: confirm a previous commit
       junos_config:
