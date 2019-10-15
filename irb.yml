@@ -2,38 +2,16 @@
 - name: Configure Juniper Access Switch
   hosts: access_fabric
   connection: local
-  gather_facts: no
+  gather_facts: yes
   roles:
     - juniper.junos
-    - paloaltonetworks.paloaltonetworks
     
   vars:
   
     - build_dir: '/tmp/'
       config_file: 'irb.set'
 
-    - csw1_vars:
-        - irb_net_oct: "{{ irb_net_oct1 }}"
-          irb_prefix: "{{ irb_prefix1 }}"
-          vlan_id: "{{ vlan_id }}"
-          role: "{{ role }}"
-          ospf_md5: "{{ ospf_md5 }}"
-          ge_0_0_2_octet: "{{ ge_0_0_2_octet1 }}"
-          ge_0_0_2_prefix: "{{ ge_0_0_2_prefix1 }}"
-          ge_0_0_3_octet: "{{ ge_0_0_3_octet1 }}"
-          ge_0_0_3_prefix: "{{ ge_0_0_3_prefix1 }}"
 
-    - csw2_vars:
-        - irb_net_oct: "{{ irb_net_oct2 }}"
-          irb_prefix: "{{ irb_prefix2 }}"
-          vlan_id: "{{ vlan_id }}"
-          role: "{{ role }}"
-          ospf_md5: "{{ ospf_md5 }}"
-          ge_0_0_2_octet: "{{ ge_0_0_2_octet2 }}"
-          ge_0_0_2_prefix: "{{ ge_0_0_2_prefix2 }}"
-          ge_0_0_3_octet: "{{ ge_0_0_3_octet2 }}"
-          ge_0_0_3_prefix: "{{ ge_0_0_3_prefix2 }}"
-          
   tasks:
            
     - name: Build Core Switch Configuration	
@@ -44,7 +22,7 @@
       juniper_junos_config:	
         load: 'merge'	
         file: "{{ build_dir }}{{ config_file }}"	
-        host: MFD325-MDF-CSW1	
+        host: {{ host }} 	
         confirm: 3	
         check_commit_wait: 3	
 
