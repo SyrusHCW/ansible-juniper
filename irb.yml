@@ -1,6 +1,7 @@
 - name: Apply configuration
   hosts: MFD325-MDF-CSW1
   gather_facts: False
+  connection: local
   tasks:
     - name: Juniper Commit
       junos_config:
