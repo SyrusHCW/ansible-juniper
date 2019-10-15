@@ -16,7 +16,7 @@
            
     - name: Build Core Switch Configuration	
       template: src=description.set.j2 dest={{build_dir}}/MFD325-MDF-CSW1.set	
-      with_items: groups['core_switches'][host]['MFD325-MDF-CSW1']
+      with_items: [host]['MFD325-MDF-CSW1']
 
     - name: Apply Core Switch Configuration	
       juniper_junos_config:	
