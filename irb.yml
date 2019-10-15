@@ -1,5 +1,5 @@
 - name: Apply configuration
-  hosts: MFD325-MDF-CSW1
+  hosts: core_switches
   gather_facts: True
   connection: local
   tasks:
