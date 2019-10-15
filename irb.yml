@@ -21,7 +21,7 @@
     - name: Apply Core Switch Configuration	
       juniper_junos_config:	
         load: 'merge'	
-        file: "{{ build_dir }}"groups['core_switches'][host].set	
+        file: "{{ build_dir }}"/groups['core_switches'][host].set	
         confirm: 3	
         check_commit_wait: 3	
 
