@@ -13,7 +13,7 @@
         username: '{{ username }}'
         password: '{{ password }}'
         template: '{{ device_template }}'
-        virtual_router: '{{ virtual_router }}'
+        virtual_router: '{{ item.virtual_router }}'
         name: '{{ item.name }}'
         destination: '{{ item.destination }}'
         nexthop: '{{ item.nexthop }}'
