@@ -17,5 +17,5 @@
         name: '{{ item.name }}'
         destination: '{{ item.destination }}'
         nexthop: '{{ item.nexthop }}'
-     with_items:
-       - '{{ static_routes }}'        
+      with_items:
+        - '{{ static_routes }}'        
