@@ -56,6 +56,7 @@
           - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} dead-interval 4
           - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} authentication md5 1 key {{ ospf_md5 }}          
         comment: "Push from Ansible"
+        timeout: 25        
       with_nested: 
         - '{{ distribution_switches_neighbors }}' 
         - '{{ vrfs }}'
