@@ -7,8 +7,8 @@
     - name: Core Switch inet0 uplinks to palo altos
       junos_config:
         lines:         
-          - set interfaces interface-range mfd325-mdf-fw1-ethernet-{{ item.0.palo_interface}}-range member {{ item.0.physical_fw1-1 }}
-          - set interfaces interface-range mfd325-mdf-fw1-ethernet-{{ item.0.palo_interface}}-range member {{ item.0.physical_fw1-2 }}
+          - set interfaces interface-range mfd325-mdf-fw1-ethernet-{{ item.0.palo_interface}}-range member {{ item.0.physical_fw1_1 }}
+          - set interfaces interface-range mfd325-mdf-fw1-ethernet-{{ item.0.palo_interface}}-range member {{ item.0.physical_fw1_2 }}
           - set interfaces interface-range mfd325-mdf-fw1-ethernet-{{ item.0.palo_interface}}-range unit 0 family ethernet-switching interface-mode trunk
           - set interfaces interface-range mfd325-mdf-fw1-ethernet-{{ item.0.palo_interface}}-range unit 0 family ethernet-switching vlan members {{ item.0.vlan_prefix }}{{ item.1.id }}
           - set vlans trust_{{ item.1.name }}_palo_p2p vlan-id {{ item.0.vlan_prefix }}{{ item.1.id }}
