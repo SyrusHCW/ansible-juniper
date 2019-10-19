@@ -16,7 +16,6 @@
           - set protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}55 dead-interval 4
           - set protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}55 authentication md5 1 key {{ ospf_md5 }}           
         comment: "Push from Ansible"
-        confirm: 3
       with_items: 
         - '{{ access_switches_neighbors }}'  
           
