@@ -1,5 +1,6 @@
 ---
 - hosts: '{{ host }}'
+  connection: local
 
 
   roles:
