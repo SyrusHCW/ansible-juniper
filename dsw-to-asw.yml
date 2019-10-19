@@ -30,7 +30,7 @@
     - name: Core Switch inet0 uplinks to distribution layer switches
       junos_config:
         lines:         
-          - set interfaces '{{ item.interface }}' description "'{{ item.neighbor }}'"
+          - set interfaces {{ item.interface }} description "{{ item.neighbor }}"
           - set interfaces {{ item.interface }} vlan-tagging
           - set interfaces {{ item.interface }} unit {{ item.vlan_prefix }}55 vlan-id {{ item.vlan_prefix }}55
           - set interfaces {{ item.interface }} unit {{ item.vlan_prefix }}55 family inet address 169.254.55.{{ item.host_bit }}/30
@@ -41,11 +41,11 @@
           - set routing-instances vr-trust_{{ item.role }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}55 bfd-liveness-detection minimum-interval 1500
           - set routing-instances vr-trust_{{ item.role }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}55 bfd-liveness-detection multiplier 4
           - set routing-instances vr-trust_{{ item.role }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}55 bfd-liveness-detection full-neighbors-only
-          - set routing-instances vr-trust_{{ item.role }} interface {{ item.interface }}.{{ item.vlan_prefix }}55
-      with_items: 
-        - '{{ distribution_switches_neighbors }}'              
+          - set routing-instances vr-trust_{{ item.role }} interface {{ item.interface }}.{{ item.vlan_prefix }}55             
         comment: "Push from Ansible"
         confirm: 3
+      with_items: 
+        - '{{ distribution_switches_neighbors }}' 
 
     - name: Wait to confirm no communication loss
       pause:
