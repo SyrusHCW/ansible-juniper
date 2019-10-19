@@ -1,0 +1,73 @@
+- name: Apply configuration
+  hosts: '{{ host }}'
+  gather_facts: true
+  connection: local
+  
+  tasks:
+    - name: Core Switch inet0 uplinks to palo altos
+      junos_config:
+        lines:         
+          - set interfaces interface-range mfd325-mdf-fw1-ethernet-{{ item.0.palo_interface}}-range member {{ item.0.physical_fw1-1 }}
+          - set interfaces interface-range mfd325-mdf-fw1-ethernet-{{ item.0.palo_interface}}-range member {{ item.0.physical_fw1-2 }}
+          - set interfaces interface-range mfd325-mdf-fw1-ethernet-{{ item.0.palo_interface}}-range unit 0 family ethernet-switching interface-mode trunk
+          - set interfaces interface-range mfd325-mdf-fw1-ethernet-{{ item.0.palo_interface}}-range unit 0 family ethernet-switching vlan members {{ item.0.vlan_prefix }}{{ item.1.id }}
+          - set vlans trust_{{ item.1.name }}_palo_p2p vlan-id {{ item.0.vlan_prefix }}{{ item.1.id }}
+          - set vlans trust_{{ item.1.name }}_palo_p2p l3-interface {{ item.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }}
+          - set interfaces {{ item.interface }} unit {{ item.0.vlan_prefix }}{{ item.1.id }} description "{{ item.0.name }}"
+          - set interfaces {{ item.interface }} unit {{ item.0.vlan_prefix }}{{ item.1.id }} family inet address 169.254.{{ item.1.id }}.{{ item.0.host_bit }}/30
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface irb.{{ item.0.vlan_prefix }}{{ item.1.id }} interface-type p2p
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface irb.{{ item.0.vlan_prefix }}{{ item.1.id }} hello-interval 3
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface irb.{{ item.0.vlan_prefix }}{{ item.1.id }} dead-interval 12
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface irb.{{ item.0.vlan_prefix }}{{ item.1.id }} authentication md5 1 key {{ ospf_md5 }} 
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface irb.{{ item.0.vlan_prefix }}{{ item.1.id }} bfd-liveness-detection minimum-interval 1500
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface irb.{{ item.0.vlan_prefix }}{{ item.1.id }} bfd-liveness-detection multiplier 4
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface irb.{{ item.0.vlan_prefix }}{{ item.1.id }} bfd-liveness-detection full-neighbors-only
+        comment: "Push from Ansible"
+      with_nested: 
+        - '{{ palo_alto_neighbors }}' 
+        - '{{ vlans }}'
+      tags:
+        - pa_uplinks  
+
+    - name: Wait to confirm no communication loss
+      pause:
+        seconds: 10
+      tags:
+        - pa_uplinks  
+
+    - name: Commit Configuration
+      junos_config:
+        confirm_commit: true
+      tags:
+        - pa_uplinks   
+
+    - name: Core Switch inet0 uplinks to distribution layer switches
+      junos_config:
+        lines:         
+          - set interfaces {{ item.0.interface }} description "{{ item.1.name }}"
+          - set interfaces {{ item.0.interface }} vlan-tagging
+          - set interfaces {{ item.0.interface }} unit {{ item.0.vlan_prefix }}{{ item.1.id }} vlan-id {{ item.0.vlan_prefix }}{{ item.1.id }}
+          - set interfaces {{ item.0.interface }} unit {{ item.0.vlan_prefix }}{{ item.1.id }}  family inet address 169.254.{{ item.1.id }}.{{ item.0.host_bit }}/30
+          - set routing-instances vr-trust_{{ item.1.name }} interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }}
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} interface-type p2p
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} hello-interval 1
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} dead-interval 4
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} authentication md5 1 key {{ ospf_md5 }}          
+        comment: "Push from Ansible"
+      with_nested: 
+        - '{{ distribution_switches_neighbors }}' 
+        - '{{ vlans }}'
+      tags:
+        - dsw_uplinks  
+
+    - name: Wait to confirm no communication loss
+      pause:
+        seconds: 10
+      tags:
+        - dsw_uplinks  
+
+    - name: Commit Configuration
+      junos_config:
+        confirm_commit: true
+      tags:
+        - dsw_uplinks  
