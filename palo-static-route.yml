@@ -1,0 +1,17 @@
+- hosts: '{{ host }}'
+  connection: local
+
+  roles:
+    - role: paloaltonetworks.paloaltonetworks
+    
+  tasks:
+    - name: Create Static Route
+      panos_static_route:
+        ip_address: '{{ panorama_instance }}'
+        username: '{{ username }}'
+        password: '{{ password }}'
+        name: '{{ route_name }}'
+        destination: '{{ destination_cidr }}'
+        nexthop: '{{ next_hop }}'
+        template: '{{ device_template }}'
+        virtual_router: '{{ virtual_router }}'
