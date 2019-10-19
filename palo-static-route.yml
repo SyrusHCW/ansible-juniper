@@ -7,7 +7,7 @@
   tasks:
     - name: Create Static Route
       panos_static_route:
-        ip_address: '{{ panorama_instance }}'
+        ip_address: '{{ ip_address }}'
         username: '{{ username }}'
         password: '{{ password }}'
         name: '{{ route_name }}'
