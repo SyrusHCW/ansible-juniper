@@ -1,0 +1,27 @@
+- name: Apply configuration
+  hosts: '{{ host }}'
+  gather_facts: True
+  connection: local
+  
+  tasks:
+    - name: Distribution Switch inet0 uplinks to access layer switches
+      junos_config:
+        lines:         
+          - set interfaces '{{ item.interface }}' description "'{{ item.neighbor }}'"
+          - set interfaces '{{ item.interface }}' vlan-tagging
+          - set interfaces '{{ item.interface }}' unit '{{ item.vlan_prefix }}'55 vlan-id '{{ item.vlan_prefix }}'55
+          - set interfaces '{{ item.interface }}' unit '{{ item.vlan_prefix }}'55 family inet address 169.254.55."'{{ item.host_bit }}'"/30
+          - set protocols ospf area 0.0.0.0 interface '{{ item.interface }}''{{ item.vlan_prefix }}'55 interface-type p2p
+          - set protocols ospf area 0.0.0.0 interface '{{ item.interface }}'.'{{ item.vlan_prefix }}'55 hello-interval 1
+          - set protocols ospf area 0.0.0.0 interface '{{ item.interface }}'.'{{ item.vlan_prefix }}'55 dead-interval 4
+          - set protocols ospf area 0.0.0.0 interface '{{ item.interface }}'.'{{ item.vlan_prefix }}'55 authentication md5 1 key "{{ ospf_md5 }}"             
+        comment: "Push from Ansible"
+        confirm: 3
+
+    - name: Wait to confirm no communication loss
+      pause:
+        seconds: 10
+
+    - name: Commit Configuration
+      junos_config:
+        confirm_commit: true
