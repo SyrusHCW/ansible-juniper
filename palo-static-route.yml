@@ -7,11 +7,10 @@
   tasks:
     - name: Create Static Route
       panos_static_route:
-        ip_address: '{{ ip_address }}'
+        ip_address: 192.168.1.1
         username: '{{ username }}'
         password: '{{ password }}'
         name: '{{ route_name }}'
         destination: '{{ destination_cidr }}'
         nexthop: '{{ next_hop }}'
-        template: '{{ device_template }}'
         virtual_router: '{{ virtual_router }}'
