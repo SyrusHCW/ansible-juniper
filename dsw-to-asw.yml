@@ -36,7 +36,7 @@
           - set interfaces {{ item.interface }} unit {{ item.vlan_prefix }}{{ item.1.id }}  family inet address 169.254.{{ item.1.id }} .{{ item.host_bit }}/30
         comment: "Push from Ansible"
         confirm: 3
-      with_items: 
+      with_nested: 
         - '{{ distribution_switches_neighbors }}' 
         - '{{ vlans }}'
 
