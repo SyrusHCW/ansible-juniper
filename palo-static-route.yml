@@ -13,7 +13,9 @@
         username: '{{ username }}'
         password: '{{ password }}'
         template: '{{ device_template }}'
-        name: '{{ route_name }}'
-        destination: '{{ destination_cidr }}'
-        nexthop: '{{ next_hop }}'
         virtual_router: '{{ virtual_router }}'
+        name: '{{ item.name }}'
+        destination: '{{ item.destination }}'
+        nexthop: '{{ item.nexthop }}'
+     with_items:
+       - '{{ static_routes }}'        
