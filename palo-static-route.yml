@@ -10,6 +10,7 @@
         ip_address: 192.168.1.1
         username: admin
         password: admin
+        template: "MFD325-MDF-FW1"
         name: '{{ route_name }}'
         destination: '{{ destination_cidr }}'
         nexthop: '{{ next_hop }}'
