@@ -30,10 +30,10 @@
     - name: Core Switch inet0 uplinks to distribution layer switches
       junos_config:
         lines:         
-          - set interfaces {{ item.interface }} description "{{ item.name }}"
-          - set interfaces {{ item.interface }} vlan-tagging
-          - set interfaces {{ item.interface }} unit {{ item.vlan_prefix }}{{ item.1.id }} vlan-id {{ item.vlan_prefix }}{{ item.1.id }}
-          - set interfaces {{ item.interface }} unit {{ item.vlan_prefix }}{{ item.1.id }}  family inet address 169.254.{{ item.1.id }} .{{ item.host_bit }}/30
+          - set interfaces {{ item.0.interface }} description "{{ item.1.name }}"
+          - set interfaces {{ item.0.interface }} vlan-tagging
+          - set interfaces {{ item.0.interface }} unit {{ item.0.vlan_prefix }}{{ item.1.id }} vlan-id {{ item.0.vlan_prefix }}{{ item.1.id }}
+          - set interfaces {{ item.0.interface }} unit {{ item.0.vlan_prefix }}{{ item.1.id }}  family inet address 169.254.{{ item.1.id }} .{{ item.0.host_bit }}/30
         comment: "Push from Ansible"
         confirm: 3
       with_nested: 
