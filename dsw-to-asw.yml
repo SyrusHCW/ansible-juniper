@@ -30,7 +30,7 @@
     - name: Core Switch inet0 uplinks to distribution layer switches
       junos_config:
         lines:         
-          - set interfaces {{ item.interface }} description "{{ item.neighbor }}"
+          - set interfaces {{ item.interface }} description "{{ item.name }}"
           - set interfaces {{ item.interface }} vlan-tagging
           - set interfaces {{ item.interface }} unit {{ item.vlan_prefix }}55 vlan-id {{ item.vlan_prefix }}55
           - set interfaces {{ item.interface }} unit {{ item.vlan_prefix }}55 family inet address 169.254.55.{{ item.host_bit }}/30
