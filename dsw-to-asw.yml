@@ -32,20 +32,21 @@
         lines:         
           - set interfaces {{ item.interface }} description "{{ item.name }}"
           - set interfaces {{ item.interface }} vlan-tagging
-          - set interfaces {{ item.interface }} unit {{ item.vlan_prefix }}55 vlan-id {{ item.vlan_prefix }}55
-          - set interfaces {{ item.interface }} unit {{ item.vlan_prefix }}55 family inet address 169.254.55.{{ item.host_bit }}/30
-          - set routing-instances vr-trust_{{ item.role }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}55 interface-type p2p
-          - set routing-instances vr-trust_{{ item.role }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}55 hello-interval 1
-          - set routing-instances vr-trust_{{ item.role }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}55 dead-interval 4
-          - set routing-instances vr-trust_{{ item.role }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}55 authentication md5 1 key {{ ospf_md5 }}
-          - set routing-instances vr-trust_{{ item.role }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}55 bfd-liveness-detection minimum-interval 1500
-          - set routing-instances vr-trust_{{ item.role }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}55 bfd-liveness-detection multiplier 4
-          - set routing-instances vr-trust_{{ item.role }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}55 bfd-liveness-detection full-neighbors-only
-          - set routing-instances vr-trust_{{ item.role }} interface {{ item.interface }}.{{ item.vlan_prefix }}55             
+          - set interfaces {{ item.interface }} unit {{ item.vlan_prefix }}{{ item.id }} vlan-id {{ item.vlan_prefix }}{{ item.id }}
+          - set interfaces {{ item.interface }} unit {{ item.vlan_prefix }}{{ item.id }}  family inet address 169.254.{{ item.id }} .{{ item.host_bit }}/30
+          - set routing-instances vr-trust_{{ item.name }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}{{ item.id }}  interface-type p2p
+          - set routing-instances vr-trust_{{ item.name }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}{{ item.id }}  hello-interval 1
+          - set routing-instances vr-trust_{{ item.name }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}{{ item.id }}  dead-interval 4
+          - set routing-instances vr-trust_{{ item.name }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}{{ item.id }}  authentication md5 1 key {{ ospf_md5 }}
+          - set routing-instances vr-trust_{{ item.name }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}{{ item.id }}  bfd-liveness-detection minimum-interval 1500
+          - set routing-instances vr-trust_{{ item.name }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}{{ item.id }}  bfd-liveness-detection multiplier 4
+          - set routing-instances vr-trust_{{ item.name }} protocols ospf area 0.0.0.0 interface {{ item.interface }}.{{ item.vlan_prefix }}{{ item.id }}  bfd-liveness-detection full-neighbors-only
+          - set routing-instances vr-trust_{{ item.name }} interface {{ item.interface }}.{{ item.vlan_prefix }}{{ item.id }}            
         comment: "Push from Ansible"
         confirm: 3
       with_items: 
         - '{{ distribution_switches_neighbors }}' 
+        - '{{ vlans }}'
 
     - name: Wait to confirm no communication loss
       pause:
