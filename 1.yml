@@ -7,10 +7,10 @@
     - name: Distribution Switch uplinks to access switches
       junos_config:
         lines:         
-          - set interfaces {{ item.0.{{ item.1.name }}interface }} description "{{ item.1.name }}"
-          - set interfaces {{ item.0.{{ item.1.name }}interface }} vlan-tagging
-          - set interfaces {{ item.0.{{ item.1.name }}interface }} unit {{ item.1.id }} vlan-id {{ item.1.id }}
-          - set interfaces {{ item.0.{{ item.1.name }}interface }} unit {{ item.1.id }}  family inet address {{ item.0.{{ item.1.name }}.ip }}
+          - set interfaces {{ item.0.{{ item.1.name }}.interface }} description "{{ item.1.name }}"
+          - set interfaces {{ item.0.{{ item.1.name }}.interface }} vlan-tagging
+          - set interfaces {{ item.0.{{ item.1.name }}.interface }} unit {{ item.1.id }} vlan-id {{ item.1.id }}
+          - set interfaces {{ item.0.{{ item.1.name }}.interface }} unit {{ item.1.id }}  family inet address {{ item.0.{{ item.1.name }}.ip }}
           - set routing-instances vr-trust_{{ item.1.name }} interface {{ item.0.interface }}.{{ item.0.id }}
           - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.{{ item.1.name }}.interface }}.{{ item.1.id }} passive
           - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.{{ item.1.name }}.interface }}.{{ item.1.id }} hello-interval 1
