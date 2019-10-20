@@ -7,7 +7,7 @@
     - name: Distribution Switch uplinks to access switches
       junos_config:
         lines:         
-          - set interfaces {{ item.0.access.interface }} description "{{ item.1.name }}"
+          - set interfaces {{ item.0.{{ item.1.name }}.interface }} description "{{ item.1.name }}"
         comment: "Push from Ansible"
         timeout: 25
         confirm: 3
