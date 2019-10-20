@@ -7,17 +7,17 @@
     - name: Distribution Switch uplinks to access switches
       junos_config:
         lines:         
-          - set interfaces {{ item.0.interface }} description "{{ item.0.name }}"
-          - set interfaces {{ item.0.interface }} vlan-tagging
-          - set interfaces {{ item.0.interface }} unit {{ item.0.id }} vlan-id {{ item.0.id }}
-          - set interfaces {{ item.0.interface }} unit {{ item.0.id }}  family inet address {{ item.0.{{ item.1.name }}.ip }}
-          - set routing-instances vr-trust_{{ item.0.name }} interface {{ item.0.interface }}.{{ item.0.id }}
-          - set routing-instances vr-trust_{{ item.0.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.id }} passive
-          - set routing-instances vr-trust_{{ item.0.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.id }} hello-interval 1
-          - set routing-instances vr-trust_{{ item.0.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.id }} dead-interval 4
-          - set routing-instances vr-trust_{{ item.0.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.id }} authentication md5 1 key {{ ospf_md5 }}
+          - set interfaces {{ item.0.{{ item.1.name }}interface }} description "{{ item.1.name }}"
+          - set interfaces {{ item.0.{{ item.1.name }}interface }} vlan-tagging
+          - set interfaces {{ item.0.{{ item.1.name }}interface }} unit {{ item.1.id }} vlan-id {{ item.1.id }}
+          - set interfaces {{ item.0.{{ item.1.name }}interface }} unit {{ item.1.id }}  family inet address {{ item.0.{{ item.1.name }}.ip }}
+          - set routing-instances vr-trust_{{ item.1.name }} interface {{ item.0.interface }}.{{ item.0.id }}
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.{{ item.1.name }}.interface }}.{{ item.1.id }} passive
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.{{ item.1.name }}.interface }}.{{ item.1.id }} hello-interval 1
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.{{ item.1.name }}.interface }}.{{ item.1.id }} dead-interval 4
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.{{ item.1.name }}.interface }}.{{ item.1.id }} authentication md5 1 key {{ ospf_md5 }}
           - set vlans {{ item.0.name }} vlan-id {{item.0.id }} 
-          - set vlans access l3-interface {{ item.0.interface }}.{{item.0.id }}    
+          - set vlans access l3-interface {{ item.0.{{ item.1.name }}.interface }}.{{item.1.id }}    
         comment: "Push from Ansible"
         timeout: 25
         confirm: 3
