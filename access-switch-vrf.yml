@@ -44,7 +44,7 @@
           - set interfaces {{ item.0.interface }} vlan-tagging
           - set interfaces {{ item.0.interface }} unit {{ item.0.id }} vlan-id {{ item.0.id }}
           - set interfaces {{ item.0.interface }} unit {{ item.0.id }}  family inet address {{ item.0.ip }}
-          - set routing-instances vr-trust_{{ item.0.name }} interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.0.id }}
+          - set routing-instances vr-trust_{{ item.0.name }} interface {{ item.0.interface }}.{{ item.0.id }}
           - set routing-instances vr-trust_{{ item.0.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.id }} paasive
           - set routing-instances vr-trust_{{ item.0.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.id }} hello-interval 1
           - set routing-instances vr-trust_{{ item.0.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.id }} dead-interval 4
