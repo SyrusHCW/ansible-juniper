@@ -1,0 +1,73 @@
+- name: Apply configuration
+  hosts: '{{ host }}'
+  gather_facts: true
+  connection: local
+  
+  tasks:
+    - name: Distribution Switch uplinks to core switches
+      junos_config:
+        lines:         
+          - set interfaces {{ item.0.interface }} description "{{ item.1.name }}"
+          - set interfaces {{ item.0.interface }} vlan-tagging
+          - set interfaces {{ item.0.interface }} unit {{ item.0.vlan_prefix }}{{ item.1.id }} vlan-id {{ item.0.vlan_prefix }}{{ item.1.id }}
+          - set interfaces {{ item.0.interface }} unit {{ item.0.vlan_prefix }}{{ item.1.id }}  family inet address 169.254.{{ item.1.id }}.{{ item.0.host_bit }}/30
+          - set routing-instances vr-trust_{{ item.1.name }} interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }}
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} interface-type p2p
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} hello-interval 1
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} dead-interval 4
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} authentication md5 1 key {{ ospf_md5 }}          
+        comment: "Push from Ansible"
+        timeout: 25
+        confirm: 3
+      with_nested: 
+        - '{{ core_switch_neighbors }}' 
+        - '{{ vrfs }}'
+      tags:
+        - csw_uplinks 
+
+    - name: Wait to confirm no communication loss
+      pause:
+        seconds: 10
+      tags:
+        - csw_uplinks  
+
+    - name: Commit Configuration
+      junos_config:
+        confirm_commit: true
+      tags:
+        - csw_uplinks   
+
+    - name: Distribution Switch uplinks to access switches
+      junos_config:
+        lines:         
+          - set interfaces {{ item.0.interface }} description "{{ item.1.name }}"
+          - set interfaces {{ item.0.interface }} vlan-tagging
+          - set interfaces {{ item.0.interface }} unit {{ item.0.vlan_prefix }}{{ item.1.id }} vlan-id {{ item.0.vlan_prefix }}{{ item.1.id }}
+          - set interfaces {{ item.0.interface }} unit {{ item.0.vlan_prefix }}{{ item.1.id }}  family inet address 169.254.{{ item.1.id }}.{{ item.0.host_bit }}/30
+          - set routing-instances vr-trust_{{ item.1.name }} interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }}
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} interface-type p2p
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} hello-interval 1
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} dead-interval 4
+          - set routing-instances vr-trust_{{ item.1.name }} protocols ospf area 0.0.0.0 interface {{ item.0.interface }}.{{ item.0.vlan_prefix }}{{ item.1.id }} authentication md5 1 key {{ ospf_md5 }}          
+        comment: "Push from Ansible"
+        timeout: 25
+        confirm: 3
+      with_nested: 
+        - '{{ access_switches_neighbors }}' 
+        - '{{ vrfs }}'
+      tags:
+        - asw_uplinks  
+
+    - name: Wait to confirm no communication loss
+      pause:
+        seconds: 10
+      tags:
+        - asw_uplinks  
+
+    - name: Commit Configuration
+      junos_config:
+        confirm_commit: true
+      tags:
+        - asw_uplinks  
+
+
