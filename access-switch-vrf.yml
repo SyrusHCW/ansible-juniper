@@ -56,7 +56,8 @@
         confirm: 3
       with_nested: 
         - '{{ access_config }}' 
-
+        - '{{ vrfs }}'
+        
       tags:
         - asw 
 
