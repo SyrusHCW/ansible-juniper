@@ -16,6 +16,6 @@
         virtual_router: '{{ item.virtual_router }}'
         name: '{{ item.name }}'
         destination: '{{ item.destination }}'
-        nexthop: '{{ item.nexthop }}'
+        interface: '{{ item.interface }}'
       with_items:
         - '{{ static_routes }}'        
