@@ -17,5 +17,6 @@
         name: '{{ item.name }}'
         destination: '{{ item.destination }}'
         interface: '{{ item.interface }}'
+        nexthop_type: '{{ item.nexthop_type }}'
       with_items:
         - '{{ static_routes }}'        
