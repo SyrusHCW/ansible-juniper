@@ -19,4 +19,22 @@
         interface: '{{ item.interface }}'
         nexthop_type: '{{ item.nexthop_type }}'
       with_items:
-        - '{{ static_routes }}'        
+        - '{{ static_routes }}'     
+      tags:
+        - static
+
+    - name: Create Redistribution Profile
+      panos_redistribution:
+        ip_address: '{{ ip_address }}'
+        username: '{{ username }}'
+        password: '{{ password }}'
+        template: '{{ device_template }}'
+        vrname: '{{ item.virtual_router }}'
+        name: '{{ item.name }}'
+        filter_destination: '{{ item.filter_destination }}'
+        action: '{{ item.action }}'
+        filter_type: '{{ item.filter_type }}'
+      with_items:
+        - '{{ redistribution_profile }}'     
+      tags:
+        - redistribution
