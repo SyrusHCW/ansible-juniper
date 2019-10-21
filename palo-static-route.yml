@@ -29,7 +29,7 @@
         username: '{{ username }}'
         password: '{{ password }}'
         template: '{{ device_template }}'
-        vrname: '{{ item.virtual_router }}'
+        vr_name: '{{ item.virtual_router }}'
         name: '{{ item.name }}'
         filter_destination: '{{ item.filter_destination }}'
         action: '{{ item.action }}'
