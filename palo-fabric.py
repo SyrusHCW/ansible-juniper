@@ -14,14 +14,14 @@ password = sys.argv[2]
 panorama_dns = sys.argv[3]
 template = sys.argv[4]
 vlan_id = sys.argv[5]
-vlan_name = sys.argv[6]
-virtual_router = sys.argv[11]
+vlan_name = virtual_router.split("vr-")
+virtual_router = sys.argv[6]
 interface_id = sys.argv[7]
 interface_prefix = sys.argv[8]
 interface_octet = sys.argv[9]
 vsys_name = sys.argv[10]
 zone_name = virtual_router.split("vr-")
-router_id = sys.argv[10]
+router_id = sys.argv[11]
 present = sys.argv[12]
 ospf_area = sys.argv[13]
 
