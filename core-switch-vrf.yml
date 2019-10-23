@@ -21,10 +21,7 @@
     - name: Core Switch inet0 uplinks to palo altos
       junos_config:
         lines:         
-          - set system host-name blah
-        comment: "Push from Ansible"
-        timeout: 25
-        confirm: 3
+          - set system host-name boop
       when: item.1.present == false
       with_nested: 
         - "{{ palo_alto_neighbors }}"
