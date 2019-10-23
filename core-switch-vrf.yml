@@ -11,9 +11,9 @@
         comment: "Push from Ansible"
         timeout: 25
         confirm: 3
+      when: '"item.1.present" == "true"
       with_nested: 
         - '{{ palo_alto_neighbors }}' 
         - '{{ vrfs }}'
-      when: 'item.1.present' == 'true'
       tags:
         - pa_uplinks  
