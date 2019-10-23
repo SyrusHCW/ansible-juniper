@@ -84,7 +84,7 @@ routing_ospf = network.Ospf(enable = "True",\
                         router_id = router_id,\
                         reject_default_route = "False")
 
-vsys.add(routing_ospf)
+routing_instance.add(routing_ospf)
 routing_ospf.create()
 
 
@@ -92,7 +92,7 @@ routing_area = network.OspfArea(name = ospf_area,\
                         type = "nssa",\
                         accept_summary = "true")
 
-vsys.add(routing_area)
+routing_instance.add(routing_area)
 routing_area.create()
 
 
