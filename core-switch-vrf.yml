@@ -13,7 +13,7 @@
         confirm: 3
       when: '"item.1.present" == "true"
       with_nested: 
-        - '{{ palo_alto_neighbors }}' 
-        - '{{ vrfs }}'
+        - "{{ palo_alto_neighbors }}"
+        - "{{ vrfs }}"
       tags:
         - pa_uplinks  
