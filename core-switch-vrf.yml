@@ -29,6 +29,7 @@
       with_nested: 
         - '{{ palo_alto_neighbors }}' 
         - '{{ vrfs }}'
+      when: '{{ item.1.present }}' == 'true'
       tags:
         - pa_uplinks  
 
