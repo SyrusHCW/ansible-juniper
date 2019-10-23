@@ -1,10 +1,15 @@
-- hosts: DBY289-LAB-FW1
+---
+- name: Apply configuration
+  hosts: '{{ host }}'
+  gather_facts: true
   connection: local
 
-  roles:
-    - role: paloaltonetworks.paloaltonetworks
-    
   tasks:
 
-    - name: Create VPC VPN and Panorama Config
-      script: palo-fabric.py {{ palo_username }} '{{ palo_password }}' {{ vlan_id }} {{ eth1_23_prefix }} {{ eth1_23_octet }} {{ pa_template }} {{ virtual_router }} {{ vsys_name }} {{ zone_name }} 
+    - name: Palo Config
+      script: scripts/campus-fabric.py {{ username }} '{{ password }}' {{ panorama }} {{ device_template }} {{ item.1.id }} {{ item.1.name }} {{ item.0.interface }} {{ item.0.vlan_prefix }} {{ item.0.host_bit }} {{ vsys_name }} {{ router_id }} {{ present }} {{ ospf_area }}
+      with_nested: 
+        - '{{ core_switches_neighbors }}' 
+        - '{{ vrfs }}'
+      tags: 
+        - palo_config
