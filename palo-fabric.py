@@ -80,9 +80,9 @@ zone.create()
 
 #Attach interface1 to routing instance, and zone
 
-routing_ospf = network.Ospf(eanble = True,\
+routing_ospf = network.Ospf(eanble = "True",\
                         router_id = router_id,\
-                        reject_default_route = False)
+                        reject_default_route = "False")
 
 vsys.add(routing_ospf)
 routing_ospf.create()
