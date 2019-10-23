@@ -92,7 +92,7 @@ routing_area = network.OspfArea(name = ospf_area,\
                         type = "nssa",\
                         accept_summary = "true")
 
-routing_instance.add(routing_area)
+routing_ospf.add(routing_area)
 routing_area.create()
 
 
