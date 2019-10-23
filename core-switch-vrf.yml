@@ -21,7 +21,9 @@
     - name: Core Switch inet0 uplinks to palo altos
       junos_config:
         lines:         
-          - set system host-name boop
+          - set system host-name woot
+      timeout: 25
+      check_commit: yes
       when: item.1.present == false
       with_nested: 
         - "{{ palo_alto_neighbors }}"
