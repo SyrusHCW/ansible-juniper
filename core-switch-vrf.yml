@@ -4,6 +4,12 @@
   connection: local
   
   tasks:
+  
+    - name: Core Switch inet0 uplinks to palo altos
+      junos_config:
+        backup: yes
+      register: backup_junos_location
+        
     - name: Core Switch inet0 uplinks to palo altos
       junos_config:
         lines:         
