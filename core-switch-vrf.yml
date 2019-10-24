@@ -5,7 +5,7 @@
   
   tasks:
   
-    - name: Core Switch inet0 uplinks to palo altos
+    - name: Backup
       junos_config:
         backup: yes
         backup_options:
