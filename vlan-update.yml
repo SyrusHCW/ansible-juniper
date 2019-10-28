@@ -1,0 +1,17 @@
+- name: Update Access switch interface vlan
+  hosts: '{{ host }}'
+  gather_facts: true
+  connection: local
+  
+  tasks:
+    - name: Access Switch uplinks to distribution switches
+      junos_config:
+        lines:         
+          - delete interfaces interface-range {{ old_vlan_name }}-range member {{ interface }}
+          - set interfaces interface-range {{ new_vlan_name }}-range member {{ interface }}
+        comment: "Push from Ansible"
+        timeout: 25
+        confirm: 3
+      with_nested: 
+        - '{{ core_switches_neighbors }}' 
+        - '{{ vrfs }}'
