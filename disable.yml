@@ -1,6 +1,6 @@
 - name: Apply configuration
   hosts: 'MFD325-MDF-CSW2'
-  connection: netconf
+  connection: local
   
   tasks:
     
