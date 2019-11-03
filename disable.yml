@@ -1,0 +1,14 @@
+- name: Apply configuration
+  hosts: MFD325-MDF-CSW2
+  gather_facts: true
+  connection: netconf
+  
+  tasks:
+    
+    - name: Disable port
+      junos_config:
+        lines:         
+          - set interfaces ge-0/0/17 disable
+        comment: "Push from Ansible"
+        timeout: 25
+        confirm: 3
