@@ -5,13 +5,4 @@
   tasks:
     
     - name: Disable port
-      junos_config:
-        lines:         
-          - set interfaces ge-0/0/15 disable
-          - set interfaces ge-0/0/16 disable 
-          - set interfaces ge-0/0/18 disable            
-          - set interfaces ge-0/0/18 disable          
-          - set interfaces ge-0/0/19 disable          
-        comment: "Push from Ansible"
-        timeout: 25
-        confirm: 3
+      junos_shutdown:
