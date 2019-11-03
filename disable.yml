@@ -1,5 +1,5 @@
 - name: Apply configuration
-  hosts: 'MFD325-MDF-CSW2'
+  hosts: '{{ host }}'
   connection: local
   
   tasks:
