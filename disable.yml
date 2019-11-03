@@ -1,6 +1,5 @@
 - name: Apply configuration
   hosts: MFD325-MDF-CSW2
-  gather_facts: true
   connection: netconf
   
   tasks:
