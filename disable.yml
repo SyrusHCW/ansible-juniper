@@ -1,5 +1,5 @@
 - name: Apply configuration
-  hosts: MFD325-MDF-CSW2
+  hosts: 'MFD325-MDF-CSW2'
   connection: netconf
   
   tasks:
