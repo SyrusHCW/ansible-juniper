@@ -1,0 +1,10 @@
+---
+- name: Apply configuration
+  hosts: '{{ host }}'
+  gather_facts: true
+  connection: local
+
+  tasks:
+
+    - name: lookup
+      script: lookup.py {{ lookup_ip }} '{{ password }}' '{{ api_token }}'
