@@ -24,4 +24,4 @@
       register: cgw
 
     - debug:
-        var: cgw
+        var: cgw.gateway.customer_gateways.customer_gateway_id
