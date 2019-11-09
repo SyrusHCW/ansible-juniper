@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: '{{ host }}'
   connection: local
   tasks:
   
@@ -7,7 +7,7 @@
       ec2_group:
         name: TEST-SG
         description: crearted sg
-        vpc_id: vpc-02e722186f2ed6fef
+        vpc_id: '{{ vpc_id }}'
         aws_secret_key: '{{ aws_secret_key }}'
         aws_access_key: '{{ aws_access_key }}'
         region: us-east-1
