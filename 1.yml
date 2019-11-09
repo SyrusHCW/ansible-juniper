@@ -33,4 +33,4 @@
         customer_gateway_id: '{{ item.1.customer_gateway_id }}'
       with_nested:
       - "{{ vgw }}"
-      - "{{ gateway.customer_gateways }}"
+      - "{{ customer_gateways }}"
