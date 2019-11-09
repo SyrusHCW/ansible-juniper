@@ -31,6 +31,9 @@
         state: present
         customer_gateway_id: '{{ cgw.gateway.customer_gateways[0].customer_gateway_id }}'
         vpn_gateway_id: '{{ vgw.vgw.id }}'
+        tunnel_options:
+          - TunnelInsideCidr: '169.254.100.1/30'
+          - TunnelInsideCidr: '169.254.100.5/30'
       register: customer_gateway_configuration
       
     - debug:
