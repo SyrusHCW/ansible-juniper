@@ -21,7 +21,7 @@
         aws_access_key: '{{ aws_access_key }}'        
         name: "{{ host }}-CGW"
         region: '{{ region }}'
-      register: cgw
+      register: gateway.customer_gateways
 
     - name: create a VPN connection
       ec2_vpc_vpn:
@@ -33,4 +33,4 @@
         customer_gateway_id: '{{ item.1.customer_gateway_id }}'
       with_nested:
       - "{{ vgw }}"
-      - "{{ cgw }}"
+      - "{{ gateway.customer_gateways }}"
