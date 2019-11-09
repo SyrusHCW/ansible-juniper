@@ -31,3 +31,6 @@
         region: '{{ region }}'
         vpn_gateway_id: "{{ created_vgw.id }}"
         customer_gateway_id: "{{ cgw.id }}"
+      with_nested:
+      - "{{ created_vgw.id }}"
+      - "{{ cgw.id }}"
