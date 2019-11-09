@@ -21,7 +21,7 @@
         aws_access_key: '{{ aws_access_key }}'        
         name: "{{ host }}-CGW"
         region: '{{ region }}'
-      register: gateway.customer_gateways
+      register: customer_gateways
 
     - name: create a VPN connection
       ec2_vpc_vpn:
