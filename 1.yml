@@ -9,6 +9,6 @@
         region: '{{ region }}'
         aws_secret_key: '{{ aws_secret_key }}'
         aws_access_key: '{{ aws_access_key }}'
-        name: personal-testing
+        name: '{{ host }}'-VGW
         type: ipsec.1
       register: created_vgw
