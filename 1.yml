@@ -34,4 +34,4 @@
       register: customer_gateway_configuration
       
     - debug:
-        vars: customer_gateway_configuration
+        var: customer_gateway_configuration
