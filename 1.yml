@@ -1,31 +1,15 @@
-- name: Apply configuration
-  hosts: '{{ host }}'
-  gather_facts: true
-  connection: local
-  
-  tasks:
-    - name: Distribution Switch uplinks to access switches
-      junos_config:
-        lines:         
-          - set interfaces {{ item.0.[{{ item.1.name }}].interface }} description "{{ item.1 }}"
-        comment: "Push from Ansible"
-        timeout: 25
-        confirm: 3
-      with_nested: 
-        - '{{ access_config }}' 
-        - '{{ vrfs }}'
-        
-      tags:
-        - asw 
-
-    - name: Wait to confirm no communication loss
-      pause:
-        seconds: 10
-      tags:
-        - asw  
-
-    - name: Commit Configuration
-      junos_config:
-        confirm_commit: true
-      tags:
-        - asw 
+---
+- name: example using security group rule descriptions
+  ec2_group:
+    name: TEST-SG
+    description: sg with rule descriptions
+    vpc_id: vpc-02e722186f2ed6fef
+    aws_secret_key: '{{ aws_secret_key }}'
+    aws_access_key: '{{ aws_access_key }}'
+    region: us-east-1
+    rules:
+      - proto: tcp
+        ports:
+        - 80
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on port 80
