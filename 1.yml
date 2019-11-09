@@ -23,5 +23,5 @@
         region: '{{ region }}'
       register: cgw
 
-    - name:
-      debug: vgw
+    - debug:
+        var: vgw
