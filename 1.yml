@@ -11,7 +11,7 @@
         aws_access_key: '{{ aws_access_key }}'
         name: "{{ host }}-VGW"
         type: ipsec.1
-      register: created_vgw
+      register: vgw
       
     - name: Create a new cgw  
       ec2_customer_gateway:
@@ -32,5 +32,5 @@
         vpn_gateway_id: "{{ created_vgw.id }}"
         customer_gateway_id: "{{ cgw.id }}"
       with_nested:
-      - "{{ created_vgw.id }}"
-      - "{{ cgw.id }}"
+      - "{{ vgw.id }}"
+      - "{{ cgw.customer_gateway_id }}"
