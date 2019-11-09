@@ -15,5 +15,5 @@
           - proto: tcp
             ports:
               - 80
-            cidr_ip: 0.0.0.0/0
-            rule_desc: allow all on port 80
+            cidr_ip: 1.1.1.1/32
+            rule_desc: crearted sg
