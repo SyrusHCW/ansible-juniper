@@ -30,5 +30,5 @@
         aws_access_key: '{{ aws_access_key }}'      
         state: present
         customer_gateway_id: '{{ cgw.gateway.customer_gateways[0].customer_gateway_id }}'
-        vpn_gateway_id: vgw.vgw.id
+        vpn_gateway_id: '{{ vgw.vgw.id }}'
       register: vpn
