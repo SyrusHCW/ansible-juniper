@@ -1,15 +1,19 @@
 ---
-- name: example using security group rule descriptions
-  ec2_group:
-    name: TEST-SG
-    description: sg with rule descriptions
-    vpc_id: vpc-02e722186f2ed6fef
-    aws_secret_key: '{{ aws_secret_key }}'
-    aws_access_key: '{{ aws_access_key }}'
-    region: us-east-1
-    rules:
-      - proto: tcp
-        ports:
-        - 80
-        cidr_ip: 0.0.0.0/0
-        rule_desc: allow all on port 80
+- hosts: localhost
+  connection: local
+  tasks:
+  
+    - name: example using security group rule descriptions
+      ec2_group:
+        name: TEST-SG
+        description: sg with rule descriptions
+        vpc_id: vpc-02e722186f2ed6fef
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_access_key: '{{ aws_access_key }}'
+        region: us-east-1
+        rules:
+          - proto: tcp
+            ports:
+              - 80
+            cidr_ip: 0.0.0.0/0
+            rule_desc: allow all on port 80
