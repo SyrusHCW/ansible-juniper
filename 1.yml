@@ -34,4 +34,5 @@
       register: customer_gateway_configuration
       
     - debug:
-        var: customer_gateway_configuration.vgw_telemetry[0]
+        var: customer_gateway_configuration.vgw_telemetry[0].outside_ip_address
+        var: customer_gateway_configuration.vgw_telemetry[1].outside_ip_address
