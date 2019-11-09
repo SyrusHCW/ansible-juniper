@@ -23,5 +23,12 @@
         region: '{{ region }}'
       register: cgw
 
-    - debug:
-        var: cgw.gateway.customer_gateways[0].customer_gateway_id
+
+    - name: create a VPN connection
+      ec2_vpc_vpn:
+        region: '{{ region }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_access_key: '{{ aws_access_key }}'      
+        state: present
+        vpn_gateway_id: '{{ vgw.id }}'
+        customer_gateway_id: '{{ cgw.gateway.customer_gateways[0].customer_gateway_id }}'
