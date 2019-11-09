@@ -22,3 +22,12 @@
         name: "{{ host }}-CGW"
         region: '{{ region }}'
       register: cgw
+
+    - name: create a VPN connection
+      ec2_vpc_vpn:
+        state: present
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_access_key: '{{ aws_access_key }}'        
+        region: '{{ region }}'
+        vpn_gateway_id: "{{ created_vgw.id }}"
+        customer_gateway_id: "{{ cgw.id }}"
