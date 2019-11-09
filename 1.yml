@@ -24,4 +24,4 @@
       register: cgw
 
     - debug:
-        var: vgw.id
+        var: vgw.vgw.id
