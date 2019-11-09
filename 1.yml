@@ -32,12 +32,10 @@
         customer_gateway_id: '{{ cgw.gateway.customer_gateways[0].customer_gateway_id }}'
         vpn_gateway_id: '{{ vgw.vgw.id }}'
         tunnel_options:
-          - TunnelInsideCidr: '{{ item.TunnelInsideCidr }}'
-          - TunnelInsideCidr: '{{ item.TunnelInsideCidr }}'
+          - TunnelInsideCidr: '{{ TunnelInsideCidr0 }}'
+          - TunnelInsideCidr: '{{ TunnelInsideCidr1 }}'
       register: customer_gateway_configuration
-      with_items: 
-        - '{{ tunnel_options }}'
+
       
     - debug:
         var: customer_gateway_configuration.vgw_telemetry[0].outside_ip_address
-        var: customer_gateway_configuration.vgw_telemetry[1].outside_ip_address
