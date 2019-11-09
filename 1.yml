@@ -7,7 +7,8 @@
       ec2_vpc_vgw:
         state: present
         region: '{{ region }}'
-        profile: personal
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_access_key: '{{ aws_access_key }}'
         name: personal-testing
         type: ipsec.1
       register: created_vgw
