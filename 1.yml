@@ -3,17 +3,11 @@
   connection: local
   tasks:
   
-    - name: example using security group rule descriptions
-      ec2_group:
-        name: TEST-SG
-        description: crearted sg
-        vpc_id: '{{ vpc_id }}'
-        aws_secret_key: '{{ aws_secret_key }}'
-        aws_access_key: '{{ aws_access_key }}'
-        region: us-east-1
-        rules:
-          - proto: tcp
-            ports:
-              - 443
-            cidr_ip: 1.1.1.1/32
-            rule_desc: crearted sg
+    - name: Create a new unattached vgw
+      ec2_vpc_vgw:
+        state: present
+        region: '{{ region }}'
+        profile: personal
+        name: personal-testing
+        type: ipsec.1
+      register: created_vgw
