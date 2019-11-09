@@ -6,7 +6,7 @@
     - name: example using security group rule descriptions
       ec2_group:
         name: TEST-SG
-        description: sg with rule descriptions
+        description: crearted sg
         vpc_id: vpc-02e722186f2ed6fef
         aws_secret_key: '{{ aws_secret_key }}'
         aws_access_key: '{{ aws_access_key }}'
