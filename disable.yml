@@ -6,9 +6,10 @@
   tasks:
   
     - name: print value_to_reuse
+      add_host:
+        hostname: AWS_USE1_TRANS_FW1
       debug:
-        var: item
-      with_items:
-        - "{{ hostvars[groups['AWS-DEV'][1].panorama] }}"
+        var: '{{ panorama }}'
+
 
 
