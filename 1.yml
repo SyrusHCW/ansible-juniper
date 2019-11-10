@@ -56,4 +56,4 @@
       register: pre_shared_key  
         
     - debug:	
-        var: pre_shared_key
+        var: pre_shared_key.matches[0]
