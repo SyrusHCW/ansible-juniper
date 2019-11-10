@@ -63,8 +63,8 @@
       
     - name: Debug variables
       debug:
-        var: '{{ item }}'
-      with_items:
+        var: '{{ item.0 }}'
+      with_nested:
         - hostvars['{{ transit_fw }}']['template']
       
     - name: Add IKE gateway config to the firewall
@@ -72,7 +72,7 @@
         username: '{{ username }}'
         password: '{{ password }}'
         ip_address: '{{ panorama }}'
-        template: '{{ template }}'
+        template: '{{ item }}'
         state: 'present' 
         name: 'IKE-GATE-{{ host }}-AZ1'
         version: 'ikev2'
@@ -82,7 +82,7 @@
         ikev2_crypto_profile: 'ICP-DH_G2-AUTH_SHA256-EN_AES256'
         commit: False 
       with_items:
-        - hostvars['{{ transit_fw }}']
+        - hostvars['{{ transit_fw }}']['template']
 
     - name: Creat VPC Security Zone
       panos_zone:
