@@ -2,7 +2,7 @@
   gather_facts: no
   tasks:
   
-  - name: print value_to_reuse
-    debug:
-      var: hostvars['AWS-USE1-TRANS-FW1']
-    with_items: "{{ hostvars }}"
+    - name: print value_to_reuse
+      debug:
+         var: item
+      with_items: "{{ hostvars['AWS-USE1-TRANS-FW1'] }}"
