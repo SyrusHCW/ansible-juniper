@@ -4,8 +4,6 @@
   
     - name: print value_to_reuse
       debug:
-        var: '{{ item }}'
-      with_items: 
-        - "{{ hostvars['AWS-USE1-TANS-FW1'] }}"
+        var: hostvars['AWS-USE1-TANS-FW1']
 
 
