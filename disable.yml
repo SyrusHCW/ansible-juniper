@@ -9,6 +9,6 @@
       debug:
         var: item
       with_items:
-        - {{ hostvars['AWS-DEV'].transit_fw }}
+        - {{ hostvars['AWS-DEV'].AWS-USE1-TRANS-FW1 }}
 
 
