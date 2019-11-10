@@ -60,4 +60,4 @@
     - debug:	
         var: tunnel_outside_address.matches[0].ip_address
         var: tunnel_inside_address.matches[0].ip_address
-        var: pre_shared_key.matches[0].pre_shared_key
+        psk: pre_shared_key.matches[0].pre_shared_key
