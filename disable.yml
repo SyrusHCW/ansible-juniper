@@ -5,4 +5,4 @@
     - name: print value_to_reuse
       debug:
          var: hostvars[item]
-      with_items: "{{ hostvars['AWS-USE1-TRANS-FW1'] }}"
+      with_items: "{{ hosts['AWS-USE1-TRANS-FW1'] }}"
