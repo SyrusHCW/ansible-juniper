@@ -63,10 +63,10 @@
       
     - name: Debug variables
       vars: 
-        var_path: hostvars['{{ transit_fw }}']['template']
+        var_path: hostvars['{{ transit_fw }}']
       debug:
-        var: '{{ item }}'
-      with_nested:
+        var: '{{ item.template }}'
+      with_items:
         - '{{ var_path }}'
       
     - name: Add IKE gateway config to the firewall
