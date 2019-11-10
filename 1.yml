@@ -41,7 +41,7 @@
 
     - name: Parse XML for IPSec tunnel IPs.
       xml:
-        xmlstring: "'{{ customer_gateway_configuration }}'"
+        xmlstring: "'{{ customer_gateway_configuration.customer_gateway_configuration }}'"
         content: "text"
         xpath: "/vpn_connection/ipsec_tunnel/customer_gateway/tunnel_inside_address/ip_address"
 
