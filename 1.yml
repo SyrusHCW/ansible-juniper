@@ -36,9 +36,6 @@
           - TunnelInsideCidr: '{{ TunnelInsideCidr1 }}'
       register: customer_gateway_configuration
 
-    - debug:
-        var: customer_gateway_configuration
-
     - name: Parse XML for IPSec tunnel IPs.
       xml:
         xmlstring: '{{ customer_gateway_configuration.customer_gateway_configuration }}'
