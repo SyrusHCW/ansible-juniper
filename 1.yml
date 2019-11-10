@@ -72,7 +72,7 @@
         username: '{{ username }}'
         password: '{{ password }}'
         ip_address: '{{ panorama }}'
-        template: '{{ template }}
+        template: '{{ template }}'
         state: 'present' 
         name: 'IKE-GATE-{{ host }}-AZ1'
         version: 'ikev2'
