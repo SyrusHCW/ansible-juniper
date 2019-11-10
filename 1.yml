@@ -89,7 +89,7 @@
         template: '{{ template }}'   
         zone: '{{ host }}'
         mode: 'layer3'
-      with_items: "{{ hostvars['{{ transit_fw }}'] }}"   
+      with_items: '{{ hostvars[{{ transit_fw }}] }}'  
     
     - name: Create tunnel IP interfaces
       panos_tunnel:
