@@ -4,6 +4,6 @@
   
     - name: print value_to_reuse
       debug:
-        var: hostvars['AWS-USE1-TANS-FW1']['panorama']
+        var: hostvars
 
 
