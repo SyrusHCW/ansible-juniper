@@ -63,7 +63,9 @@
       
     - name: Debug variables
       debug:
-        var: hostvars['{{ transit_fw }}']
+        var: item
+      with_items:
+        - hostvars['{{ transit_fw }}']
       
     - name: Add IKE gateway config to the firewall
       panos_ike_gateway:
