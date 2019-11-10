@@ -7,7 +7,7 @@
   
     - name: print value_to_reuse
       debug:
-        var: '{{ item }}'
+        var: hostvars['{{transit_fw}}']['panorama']
       with_items:
         - hostvars['{{transit_fw}}']['panorama']
 
