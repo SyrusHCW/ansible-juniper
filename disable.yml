@@ -9,6 +9,6 @@
       debug:
         var: '{{ item }}'
       with_items:
-        - hostvars['AWS-USE1-TRANS-FW1']['panorama']
+        - hostvars['{{transit_fw}}']['panorama']
 
 
