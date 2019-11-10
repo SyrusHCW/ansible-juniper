@@ -7,8 +7,8 @@
   
     - name: print value_to_reuse
       debug:
-        var: {{ item.template }}
+        var: item
       with_items:
-        - "{{ hostvars[groups['AWS-DEV'][1]] }}"
+        - "{{ hostvars[groups['AWS-DEV'][1]['template'] }}"
 
 
