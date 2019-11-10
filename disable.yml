@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: AWS_USE1_TRANS_FW1
   gather_facts: no
   
   vars:
@@ -6,8 +6,6 @@
   tasks:
   
     - name: print value_to_reuse
-      add_host:
-        hostname: "AWS_USE1_TRANS_FW1"
       debug:
         var: '{{ panorama }}'
 
