@@ -6,7 +6,6 @@
     - role: PaloAltoNetworks.paloaltonetworks
     
   tasks:
-  
     - name: Create a new unattached vgw
       ec2_vpc_vgw:
         state: present
@@ -60,12 +59,7 @@
         content: "text"
         xpath: "/vpn_connection/ipsec_tunnel/ike/pre_shared_key"
       register: pre_shared_key  
-        
-    - debug:	
-        var: tunnel_outside_address.matches[0].ip_address
-        var: tunnel_inside_address.matches[0].ip_address
-        var: pre_shared_key.matches[0].pre_shared_key
-        
+      
     - name: Add IKE gateway config to the firewall
       panos_ike_gateway:
         username: '{{ username }}'
