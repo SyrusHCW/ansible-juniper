@@ -65,7 +65,7 @@
       vars: 
         var_path: hostvars['{{ transit_fw }}']
       debug:
-        var: '{{ item.template }}'
+        var: item
       with_items:
         - '{{ var_path }}'
       
