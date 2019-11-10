@@ -1,11 +1,14 @@
 - hosts: localhost
   gather_facts: no
+  
+  vars:
+    transit_fw: "AWS-USE1-TRANS-FW1"
   tasks:
   
     - name: print value_to_reuse
       debug:
         var: '{{ item["panorama"] }}'
       with_items:
-        - hostvars["AWS-USE1-TRANS-FW1"]
+        - hostvars[{{ transit_fw }}]
 
 
