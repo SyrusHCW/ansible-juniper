@@ -9,6 +9,6 @@
       debug:
         var: item
       with_items:
-        - "{{ hostvars[groups['AWS-DEV']] }}"
+        - "{{ hostvars[groups['AWS-DEV'][0].AWS_USE1_TRANS_FW1] }}"
 
 
