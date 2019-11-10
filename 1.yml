@@ -41,12 +41,14 @@
         xmlstring: '{{ customer_gateway_configuration.customer_gateway_configuration }}'
         content: "text"
         xpath: "/vpn_connection/ipsec_tunnel/customer_gateway/tunnel_inside_address/ip_address"
+      register: tunnel_inside_address
 
     - name: Parse XML for AWS IPs
       xml:
         xmlstring: '{{ customer_gateway_configuration.customer_gateway_configuration }}'
         content: "text"
         xpath: "/vpn_connection/ipsec_tunnel/vpn_gateway/tunnel_outside_address/ip_address"
+      register: tunnel_outside_address
         
     - name: Parse XML for tunnel PSKs
       xml:
@@ -56,4 +58,6 @@
       register: pre_shared_key  
         
     - debug:	
+        var: tunnel_outside_address.matches[0].ip_address
+        var: tunnel_inside_address.matches[0].ip_address
         var: pre_shared_key.matches[0].pre_shared_key
