@@ -6,6 +6,6 @@
       debug:
         var: '{{ item }}'
       with_items: 
-        - hostvars
+        - "{{ hostvars['AWS-USE1-TANS-FW1'] }}"
 
 
