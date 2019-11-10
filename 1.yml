@@ -72,6 +72,7 @@
         username: '{{ username }}'
         password: '{{ password }}'
         ip_address: '{{ panorama }}'
+        template: '{{ template }}
         state: 'present' 
         name: 'IKE-GATE-{{ host }}-AZ1'
         version: 'ikev2'
@@ -91,7 +92,8 @@
         template: '{{ template }}'   
         zone: '{{ host }}'
         mode: 'layer3'
-      with_items: '{{ hostvars[{{ transit_fw }}] }}'  
+      with_items:
+        - hostvars['{{ transit_fw }}'] 
     
     - name: Create tunnel IP interfaces
       panos_tunnel:
@@ -103,7 +105,8 @@
         ip: ['{{ tunnel_inside_address.matches[0].ip_address }}']
         vr_name: '{{ item.routing_instance }}'
         zone_name: "{{ host }}"
-      with_items: "{{ hostvars['{{ transit_fw }}'] }}"   
+      with_items:
+        - hostvars['{{ transit_fw }}']   
       
     - name: Create IPSec Tunnel
       panos_ipsec_tunnel:
@@ -117,4 +120,5 @@
         ak_ipsec_crypto_profile: 'IPCP-EN-AES256_AU-AES256_DH_G2'
         state: 'present'
         commit: False   
-      with_items: "{{ hostvars['{{ transit_fw }}'] }}"   
+      with_items:
+        - hostvars['{{ transit_fw }}']  
