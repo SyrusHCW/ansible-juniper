@@ -70,9 +70,9 @@
       panos_ike_gateway:
         username: '{{ username }}'
         password: '{{ password }}'
-        ip_address: hostvars['{{ transit_fw }}']['panorama'] 
-        template: hostvars['{{ transit_fw }}']['template'] 
-        state: 'present'
+        ip_address: hostvars['{{ transit_fw }}']['{{ panorama }}'] 
+        template: hostvars['{{ transit_fw }}']['{{ template }}'] 
+        state: 'present' 
         name: 'IKE-GATE-{{ host }}-AZ1'
         version: 'ikev2'
         interface: 'ethernet1/1'
