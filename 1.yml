@@ -63,8 +63,8 @@
       
     - name: print value_to_reuse
       debug:
-         var: '{{ template }}'
-      with_items: '{{ hostvars[{{ transit_fw }}]: }}'
+         var: '{{ item.template }}'
+      with_items: '{{ hostvars[{{ transit_fw }}] }}'
       
     - name: Add IKE gateway config to the firewall
       panos_ike_gateway:
