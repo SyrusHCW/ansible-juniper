@@ -71,7 +71,6 @@
         username: '{{ username }}'
         password: '{{ password }}'
         ip_address: hostvars['{{ transit_fw }}']['panorama'] 
-        template: hostvars['{{ transit_fw }}']['{{ template }}'] 
         state: 'present' 
         name: 'IKE-GATE-{{ host }}-AZ1'
         version: 'ikev2'
@@ -80,7 +79,7 @@
         pre_shared_key: '{{ pre_shared_key.matches[0].pre_shared_key }}'
         ikev2_crypto_profile: 'ICP-DH_G2-AUTH_SHA256-EN_AES256'
         commit: False   
-      with_items: "{{ hostvars['{{ transit_fw }}'] }}"        
+      with_items: "{{ hostvars }}"        
         
     - name: Creat VPC Security Zone
       panos_zone:
