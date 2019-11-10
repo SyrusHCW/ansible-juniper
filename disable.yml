@@ -4,7 +4,7 @@
   
     - name: print value_to_reuse
       debug:
-        vars: '{{ item }}'
+        var: '{{ item }}'
       with_items: 
         - hostvars
 
