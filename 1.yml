@@ -63,7 +63,7 @@
       
     - name: print value_to_reuse
       debug:
-         var: '{{ item.template }}'
+         var: hostvars
       with_items: "{{ hostvars['AWS-USE1-TRANS-FW1'] }}"
       
     - name: Add IKE gateway config to the firewall
