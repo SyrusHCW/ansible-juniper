@@ -96,3 +96,16 @@
         ip: ['{{ tunnel_inside_address.matches[0].ip_address }}']
         vr_name: 'vr-master'
         zone_name: "{{ host }}"
+        
+    - name: Create IPSec Tunnel
+      panos_ipsec_tunnel:
+        username: '{{ username }}'
+        password: '{{ password }}'
+        ip_address: '{{ panorama }}'
+        template: 'SYRUS-FW1'   
+        name: 'IPSSEC-TUN-{{ host }}'
+        tunnel_interface: 'tunnel.1'
+        ak_ike_gateway: 'IKE-GATE-{{ host }}-AZ1'
+        ak_ipsec_crypto_profile: 'IPCP-EN-AES256_AU-AES256_DH_G2'
+        state: 'present'
+        commit: False   
