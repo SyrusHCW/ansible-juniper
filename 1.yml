@@ -63,7 +63,7 @@
       
     - name: Debug variables
       debug:
-        var: item
+        var: '{{ item }}'
       with_items:
         - hostvars['{{ transit_fw }}']
       
