@@ -70,8 +70,8 @@
       panos_ike_gateway:
         username: '{{ username }}'
         password: '{{ password }}'
-        ip_address: '{{ panorama }}'
-        template: 'SYRUS-FW1'
+        ip_address: '{{ item.panorama }}'
+        template: '{{ item.template }}'
         state: 'present'
         name: 'IKE-GATE-{{ host }}-AZ1'
         version: 'ikev2'
@@ -80,37 +80,40 @@
         pre_shared_key: '{{ pre_shared_key.matches[0].pre_shared_key }}'
         ikev2_crypto_profile: 'ICP-DH_G2-AUTH_SHA256-EN_AES256'
         commit: False   
+      with_items: "{{ hostvars['{{ transit_fw }}'] }}"        
         
     - name: Creat VPC Security Zone
       panos_zone:
         username: '{{ username }}'
         password: '{{ password }}'
-        ip_address: '{{ panorama }}'
-        template: 'SYRUS-FW1'   
+        ip_address: '{{ item.panorama }}'
+        template: '{{ item.template }}'   
         zone: '{{ host }}'
         mode: 'layer3'
-
+      with_items: "{{ hostvars['{{ transit_fw }}'] }}"   
     
     - name: Create tunnel IP interfaces
       panos_tunnel:
         username: '{{ username }}'
         password: '{{ password }}'
-        ip_address: '{{ panorama }}'
-        template: 'SYRUS-FW1'        
+        ip_address: '{{ item.panorama }}'
+        template: '{{ item.template }}'        
         if_name: "tunnel.1"
         ip: ['{{ tunnel_inside_address.matches[0].ip_address }}']
-        vr_name: 'vr_master'
+        vr_name: '{{ item.routing_instance }}'
         zone_name: "{{ host }}"
-        
+      with_items: "{{ hostvars['{{ transit_fw }}'] }}"   
+      
     - name: Create IPSec Tunnel
       panos_ipsec_tunnel:
         username: '{{ username }}'
         password: '{{ password }}'
         ip_address: '{{ panorama }}'
-        template: 'SYRUS-FW1'   
+        template: '{{ item.template }}'   
         name: 'IPSSEC-TUN-{{ host }}'
         tunnel_interface: 'tunnel.1'
         ak_ike_gateway: 'IKE-GATE-{{ host }}-AZ1'
         ak_ipsec_crypto_profile: 'IPCP-EN-AES256_AU-AES256_DH_G2'
         state: 'present'
         commit: False   
+      with_items: "{{ hostvars['{{ transit_fw }}'] }}"   
