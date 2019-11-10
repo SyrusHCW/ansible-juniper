@@ -65,7 +65,7 @@
       panos_ike_gateway:
         username: '{{ username }}'
         password: '{{ password }}'
-        ip_address: item
+        ip_address: '{{ item.panorama }}'
         state: 'present' 
         name: 'IKE-GATE-{{ host }}-AZ1'
         version: 'ikev2'
@@ -75,7 +75,7 @@
         ikev2_crypto_profile: 'ICP-DH_G2-AUTH_SHA256-EN_AES256'
         commit: False   
       with_items:
-        - hostvars["{{ transit_fw }}"]["panorama"]
+        - hostvars["{{ transit_fw }}"]
         
     - name: Creat VPC Security Zone
       panos_zone:
