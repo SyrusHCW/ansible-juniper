@@ -6,4 +6,4 @@
       debug:
          vars: '{{ item }}'
       with_items: 
-        - "{{ groups['AWS-DEV'] }}"
+        - "{{ groups['AWS-DEV']['AWS-USE1-TANS-FW1'] }}"
