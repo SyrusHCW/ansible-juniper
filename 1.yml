@@ -1,6 +1,10 @@
 ---
 - hosts: '{{ host }}'
   connection: local
+  
+  roles:
+    - role: PaloAltoNetworks.paloaltonetworks
+    
   tasks:
   
     - name: Create a new unattached vgw
@@ -60,4 +64,19 @@
     - debug:	
         var: tunnel_outside_address.matches[0].ip_address
         var: tunnel_inside_address.matches[0].ip_address
-        psk: pre_shared_key.matches[0].pre_shared_key
+        var: pre_shared_key.matches[0].pre_shared_key
+        
+    - name: Add IKE gateway config to the firewall
+      panos_ike_gateway:
+        username: '{{ username }}'
+        password: '{{ password }}'
+        ip_address: '{{ panorama }}'
+        template: 'SYRUS-FW1'
+        state: 'present'
+        name: 'IKE-GATE-{{ host }}-AZ1'
+        version: 'ikev2'
+        interface: 'ethernet1/1'
+        peer_ip_value: '{{ tunnel_outside_address.matches[0].ip_address }}'
+        pre_shared_key: '{{ pre_shared_key.matches[0].pre_shared_key }}'
+        ikev2_crypto_profile: 'ICP-DH_G2-AUTH_SHA256-EN_AES256'
+        commit: False        
