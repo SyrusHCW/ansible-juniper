@@ -36,6 +36,9 @@
           - TunnelInsideCidr: '{{ TunnelInsideCidr1 }}'
       register: customer_gateway_configuration
 
+    - debug:
+        var: customer_gateway_configuration
+
     - name: Parse XML for IPSec tunnel IPs.
       xml:
         xmlstring: '{{ customer_gateway_configuration }}'
@@ -54,5 +57,4 @@
         content: "text"
         xpath: "/vpn_connection/ipsec_tunnel/ike/pre_shared_key"
         
-    - debug:
-        var: customer_gateway_configuration.vgw_telemetry[0].outside_ip_address
+
