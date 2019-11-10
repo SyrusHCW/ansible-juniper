@@ -61,8 +61,8 @@
         xpath: "/vpn_connection/ipsec_tunnel/ike/pre_shared_key"
       register: pre_shared_key  
       
-      host: '{{ transit_fw }}'
-      tasks:
+- host: '{{ transit_fw }}'
+  tasks:
     - name: Add IKE gateway config to the firewall
       panos_ike_gateway:
         username: '{{ username }}'
