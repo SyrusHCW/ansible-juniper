@@ -4,6 +4,6 @@
   
     - name: print value_to_reuse
       debug:
-         vars: '{{ items }}'
+         vars: '{{ item }}'
       with_items: 
         - "{{ groups['AWS-DEV'] }}"
