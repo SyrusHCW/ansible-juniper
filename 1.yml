@@ -31,7 +31,7 @@
 
     - name: Debug variables
       debug:
-        var: cgw.results.gateway
+        var: cgw.results[0].gateway
 
     - name: create a VPN connection
       ec2_vpc_vpn:
