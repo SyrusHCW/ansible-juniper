@@ -53,12 +53,19 @@
         xpath: "/vpn_connection/ipsec_tunnel/vpn_gateway/tunnel_outside_address/ip_address"
       register: tunnel_outside_address
 
-    - name: Parse XML for Tunnel IPs
+   - name: Parse XML for Palo Tunnel IPs
+     xml:
+       xmlstring: '{{ customer_gateway_configuration.customer_gateway_configuration }}'
+       content: "text"
+       xpath: "/vpn_connection/ipsec_tunnel/customer_gateway/tunnel_inside_address/ip_address"
+     register: tunnel_inside_address
+
+    - name: Parse XML for AWS Tunnel IPs
       xml:
         xmlstring: '{{ customer_gateway_configuration.customer_gateway_configuration }}'
         content: "text"
         xpath: "/vpn_connection/ipsec_tunnel/vpn_gateway/tunnel_inside_address/ip_address"
-      register: tunnel_inside_address
+      register: aws_tunnel_inside_address
 
     - name: Parse XML for tunnel PSKs
       xml:
@@ -120,6 +127,8 @@
         tunnel_interface: 'tunnel.1'
         ak_ike_gateway: 'IKE-GATE-{{ host }}-{{ item.availability_zones[0] }}'
         ak_ipsec_crypto_profile: 'IPCP-EN-AES256_AU-AES256_DH_G2'
+        tunnel_monitor_dest_ip: ['{{ aws_tunnel_inside_address.matches[0].ip_address }}']
+        tunnel_monitor_profile: 'default'
         state: 'present'
         commit: False   
       with_items:
@@ -167,6 +176,8 @@
         tunnel_interface: 'tunnel.2'
         ak_ike_gateway: 'IKE-GATE-{{ host }}-{{ item.availability_zones[1] }}'
         ak_ipsec_crypto_profile: 'IPCP-EN-AES256_AU-AES256_DH_G2'
+        tunnel_monitor_dest_ip: ['{{ aws_tunnel_inside_address.matches[1].ip_address }}']
+        tunnel_monitor_profile: 'default'        
         state: 'present'
         commit: False   
       with_items:
