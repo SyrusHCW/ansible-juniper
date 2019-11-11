@@ -133,6 +133,7 @@
         template: '{{ item.template }}'
         state: 'present' 
         name: 'IKE-GATE-{{ host }}-{{ item.availability_zones[1] }}'
+        enable_passive_mode: 'no'
         version: 'ikev2'
         interface: '{{ item.untrust }}'
         peer_ip_value: '{{ tunnel_outside_address.matches[1].ip_address }}'
