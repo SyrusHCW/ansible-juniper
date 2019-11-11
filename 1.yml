@@ -5,8 +5,6 @@
   
   roles:
     - role: PaloAltoNetworks.paloaltonetworks
-  vars:
-    transit_fw: AWS_USE1_TRANS_FW1
     
   tasks:
     - name: Create a new unattached vgw
