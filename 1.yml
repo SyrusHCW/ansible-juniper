@@ -39,7 +39,7 @@
         aws_secret_key: '{{ aws_secret_key }}'
         aws_access_key: '{{ aws_access_key }}'      
         state: present
-        customer_gateway_id: '{{ cgw.results.gateway.customer_gateways[0].customer_gateway_id }}'
+        customer_gateway_id: '{{ cgw.results[0].gateway.customer_gateways[0].customer_gateway_id }}'
         vpn_gateway_id: '{{ vgw.vgw.id }}'
         tunnel_options:
           - TunnelInsideCidr: '{{ TunnelInsideCidr0 }}'
