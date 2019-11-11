@@ -20,12 +20,14 @@
     - name: Create a new cgw  
       ec2_customer_gateway:
         bgp_asn: 12345
-        ip_address: 1.2.3.4
+        ip_address: '{{ item.untrust_ip }}'
         aws_secret_key: '{{ aws_secret_key }}'
         aws_access_key: '{{ aws_access_key }}'        
         name: "{{ host }}-CGW"
         region: '{{ region }}'
       register: cgw
+      with_items:
+        - "{{ hostvars[transit_fw] }}"      
 
     - name: create a VPN connection
       ec2_vpc_vpn:
