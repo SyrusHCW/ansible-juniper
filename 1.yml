@@ -67,7 +67,7 @@
         ip_address: '{{ item.panorama }}'
         template: '{{ item.template }}'
         state: 'present' 
-        name: 'IKE-GATE-{{ host }}"-"{{ item.availability_zones[0] }}'
+        name: 'IKE-GATE-{{ host }}-{{ item.availability_zones[0] }}'
         version: 'ikev2'
         interface: '{{ item.untrust }}'
         peer_ip_value: '{{ tunnel_outside_address.matches[0].ip_address }}'
@@ -154,7 +154,7 @@
         password: '{{ password }}'
         ip_address: '{{ item.panorama }}'
         template: '{{ item.template }}'
-        name: 'IPSSEC-TUN-{{ host }}{{ item.availability_zones[1] }}'
+        name: 'IPSSEC-TUN-{{ host }}-{{ item.availability_zones[1] }}'
         tunnel_interface: 'tunnel.2
         ak_ike_gateway: 'IKE-GATE-{{ host }}-{{ item.availability_zones[1] }}'
         ak_ipsec_crypto_profile: 'IPCP-EN-AES256_AU-AES256_DH_G2'
