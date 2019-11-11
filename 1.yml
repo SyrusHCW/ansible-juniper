@@ -29,6 +29,10 @@
       with_items:
         - "{{ hostvars[transit_fw] }}"      
 
+    - name: Debug variables
+      debug:
+        var: cgw
+
     - name: create a VPN connection
       ec2_vpc_vpn:
         region: '{{ region }}'
@@ -62,12 +66,6 @@
         content: "text"
         xpath: "/vpn_connection/ipsec_tunnel/ike/pre_shared_key"
       register: pre_shared_key  
-      
-    - name: Debug variables
-      debug:
-        var: item
-      with_items:
-        - "{{ hostvars[transit_fw]['template'] }}"
       
     - name: Add IKE gateway config to the firewall
       panos_ike_gateway:
