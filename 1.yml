@@ -67,14 +67,14 @@
       debug:
         var: item
       with_items:
-        - "{{ hostvars[transit_fw] }}"
+        - "{{ hostvars[transit_fw]['template'] }}"
       
     - name: Add IKE gateway config to the firewall
       panos_ike_gateway:
         username: '{{ username }}'
         password: '{{ password }}'
         ip_address: '{{ panorama }}'
-        template: item
+        template: '{{ item }}'
         state: 'present' 
         name: 'IKE-GATE-{{ host }}-AZ1'
         version: 'ikev2'
