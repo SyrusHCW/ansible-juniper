@@ -52,13 +52,13 @@
         content: "text"
         xpath: "/vpn_connection/ipsec_tunnel/vpn_gateway/tunnel_outside_address/ip_address"
       register: tunnel_outside_address
-
-   - name: Parse XML for Palo Tunnel IPs
-     xml:
-       xmlstring: '{{ customer_gateway_configuration.customer_gateway_configuration }}'
-       content: "text"
-       xpath: "/vpn_connection/ipsec_tunnel/customer_gateway/tunnel_inside_address/ip_address"
-     register: tunnel_inside_address
+      
+    - name: Parse XML for Palo Tunnel IPs
+      xml:
+        xmlstring: '{{ customer_gateway_configuration.customer_gateway_configuration }}'
+        content: "text"
+        xpath: "/vpn_connection/ipsec_tunnel/customer_gateway/tunnel_inside_address/ip_address"
+      register: tunnel_inside_address
 
     - name: Parse XML for AWS Tunnel IPs
       xml:
