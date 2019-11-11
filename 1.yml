@@ -77,6 +77,7 @@
         name: 'IKE-GATE-{{ host }}-{{ item.availability_zones[0] }}'
         version: 'ikev2'
         interface: '{{ item.untrust }}'
+        enable_passive_mode: 'no'
         peer_ip_value: '{{ tunnel_outside_address.matches[0].ip_address }}'
         pre_shared_key: '{{ pre_shared_key.matches[0].pre_shared_key }}'
         ikev2_crypto_profile: 'ICP-DH_G2-AUTH_SHA256-EN_AES256'
