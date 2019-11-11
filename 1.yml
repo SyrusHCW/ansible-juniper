@@ -40,13 +40,6 @@
           - TunnelInsideCidr: '{{ TunnelInsideCidr1 }}'
       register: customer_gateway_configuration
 
-    - name: Parse XML for IPSec tunnel IPs.
-      xml:
-        xmlstring: '{{ customer_gateway_configuration.customer_gateway_configuration }}'
-        content: "text"
-        xpath: "/vpn_connection/ipsec_tunnel/customer_gateway/tunnel_inside_address/ip_address"
-      register: tunnel_inside_address
-
     - name: Parse XML for AWS IPs
       xml:
         xmlstring: '{{ customer_gateway_configuration.customer_gateway_configuration }}'
@@ -74,9 +67,9 @@
         ip_address: '{{ item.panorama }}'
         template: '{{ item.template }}'
         state: 'present' 
-        name: 'IKE-GATE-{{ host }}-AZ1'
+        name: 'IKE-GATE-{{ host }}-'{{ item.availability_zones }}''
         version: 'ikev2'
-        interface: 'ethernet1/1'
+        interface: '{{ item.untrust }}'
         peer_ip_value: '{{ tunnel_outside_address.matches[0].ip_address }}'
         pre_shared_key: '{{ pre_shared_key.matches[0].pre_shared_key }}'
         ikev2_crypto_profile: 'ICP-DH_G2-AUTH_SHA256-EN_AES256'
@@ -118,6 +111,52 @@
         name: 'IPSSEC-TUN-{{ host }}'
         tunnel_interface: 'tunnel.1'
         ak_ike_gateway: 'IKE-GATE-{{ host }}-AZ1'
+        ak_ipsec_crypto_profile: 'IPCP-EN-AES256_AU-AES256_DH_G2'
+        state: 'present'
+        commit: False   
+      with_items:
+        - "{{ hostvars[transit_fw] }}"
+      
+    - name: Add IKE gateway config to the firewall
+      panos_ike_gateway:
+        username: '{{ username }}'
+        password: '{{ password }}'
+        ip_address: '{{ item.panorama }}'
+        template: '{{ item.template }}'
+        state: 'present' 
+        name: 'IKE-GATE-{{ host }}-AZ2'
+        version: 'ikev2'
+        interface: 'ethernet1/1'
+        peer_ip_value: '{{ tunnel_outside_address.matches[1].ip_address }}'
+        pre_shared_key: '{{ pre_shared_key.matches[1].pre_shared_key }}'
+        ikev2_crypto_profile: 'ICP-DH_G2-AUTH_SHA256-EN_AES256'
+        commit: False 
+      with_items:
+        - "{{ hostvars[transit_fw] }}"
+    
+    - name: Create tunnel IP interfaces
+      panos_tunnel:
+        username: '{{ username }}'
+        password: '{{ password }}'
+        ip_address: '{{ item.panorama }}'
+        template: '{{ item.template }}'
+        if_name: "tunnel.2"
+        ip: ['{{ tunnel_inside_address.matches[1].ip_address }}']
+        vr_name: '{{ item.routing_instance }}'
+        zone_name: "{{ host }}"
+        commit: False
+      with_items:
+        - "{{ hostvars[transit_fw] }}"
+      
+    - name: Create IPSec Tunnel
+      panos_ipsec_tunnel:
+        username: '{{ username }}'
+        password: '{{ password }}'
+        ip_address: '{{ item.panorama }}'
+        template: '{{ item.template }}'
+        name: 'IPSSEC-TUN-{{ host }-2}'
+        tunnel_interface: 'tunnel.12
+        ak_ike_gateway: 'IKE-GATE-{{ host }}-AZ2'
         ak_ipsec_crypto_profile: 'IPCP-EN-AES256_AU-AES256_DH_G2'
         state: 'present'
         commit: False   
