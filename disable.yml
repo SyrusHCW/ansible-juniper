@@ -2,15 +2,14 @@
   gather_facts: no
   
   vars:
-    transit_fw: "AWS-USE1-TRANS-FW1"
-  tasks:
-    - name: Add nfs server
-      add_host:
-        hostname: 'AWS_USE1_TRANS_FW1'
+    transit_fw: 'AWS_USE1_TRANS_FW1'
+
   
     - name: print value_to_reuse
       debug:
-        var: '{{ panorama }}'
+        var: item
+      with_items:
+        - "{{ hostvars[transit_fw]['template'] }}"
 
 
 
