@@ -108,7 +108,7 @@
         password: '{{ password }}'
         ip_address: '{{ item.panorama }}'
         template: '{{ item.template }}'
-        name: 'IPSSEC-TUN-{{ host }}'{{ item.availability_zones[0] }}'
+        name: 'IPSSEC-TUN-{{ host }}-{{ item.availability_zones[0] }}'
         tunnel_interface: 'tunnel.1'
         ak_ike_gateway: 'IKE-GATE-{{ host }}-{{ item.availability_zones[0] }}'
         ak_ipsec_crypto_profile: 'IPCP-EN-AES256_AU-AES256_DH_G2'
