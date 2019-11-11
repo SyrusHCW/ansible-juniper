@@ -5,7 +5,7 @@
     transit_fw: 'AWS_USE1_TRANS_FW1'
     
   tasks: 
-   - name: print value_to_reuse
+    - name: print value_to_reuse
       debug:
         var: item
       with_items:
