@@ -94,7 +94,6 @@
         template: '{{ item.template }}'  
         zone: '{{ host }}'
         mode: 'layer3'
-        commit: False
       with_items:
         - "{{ hostvars[transit_fw] }}"
     
