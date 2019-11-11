@@ -110,7 +110,7 @@
         ip_address: '{{ item.panorama }}'
         template: '{{ item.template }}'
         if_name: "tunnel.1"
-        ip: ['{{ tunnel_inside_address.matches[0].ip_address }}']
+        ip: ['{{ tunnel_inside_address.matches[0].ip_address }}/30']
         vr_name: '{{ item.routing_instance }}'
         zone_name: "{{ host }}"
         commit: False
@@ -157,7 +157,7 @@
         ip_address: '{{ item.panorama }}'
         template: '{{ item.template }}'
         if_name: "tunnel.2"
-        ip: ['{{ tunnel_inside_address.matches[1].ip_address }}']
+        ip: ['{{ tunnel_inside_address.matches[1].ip_address }}/30']
         vr_name: '{{ item.routing_instance }}'
         zone_name: "{{ host }}"
         commit: False
