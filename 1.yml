@@ -29,10 +29,6 @@
       with_items:
         - "{{ hostvars[transit_fw] }}"      
 
-    - name: Debug variables
-      debug:
-        var: cgw.results[0].gateway
-
     - name: create a VPN connection
       ec2_vpc_vpn:
         region: '{{ region }}'
@@ -73,6 +69,10 @@
         content: "text"
         xpath: "/vpn_connection/ipsec_tunnel/ike/pre_shared_key"
       register: pre_shared_key  
+      
+    - name: Debug variables
+      debug:
+        var: '{{ aws_tunnel_inside_address.matches[1].ip_address }}'      
       
     - name: Add IKE gateway config to the firewall
       panos_ike_gateway:
