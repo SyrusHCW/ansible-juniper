@@ -6,4 +6,4 @@
   tasks:
     - name: Debug variables
       debug:
-        var: "{{ hostvars['AWS-USE1-TRANS-FW1'].[availability_zones] }}"
+        var: "{{ hostvars['AWS-USE1-TRANS-FW1'][availability_zones] }}"
