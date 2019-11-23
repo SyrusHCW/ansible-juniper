@@ -97,7 +97,7 @@
         password: '{{ password }}'
         ip_address: '{{ item.panorama }}'
         template: '{{ item.template }}'
-        if_name: "tunnel.1"
+        if_name: "tunnel.10"
         ip: ['{{ tunnel_inside_address.matches[0].ip_address }}/30']
         vr_name: '{{ item.routing_instance }}'
         zone_name: "{{ host }}"
@@ -112,7 +112,7 @@
         ip_address: '{{ item.panorama }}'
         template: '{{ item.template }}'
         name: 'IPSSEC-TUN-{{ host }}-{{ item.availability_zones[0] }}'
-        tunnel_interface: 'tunnel.1'
+        tunnel_interface: 'tunnel.10'
         ak_ike_gateway: 'IKE-GATE-{{ host }}-{{ item.availability_zones[0] }}'
         ak_ipsec_crypto_profile: 'IPCP-EN-AES256_AU-AES256_DH_G2'
         state: 'present'
