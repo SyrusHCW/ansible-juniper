@@ -4,6 +4,15 @@
   gather_facts: False
     
   tasks:
-    - name: Debug variables
-      debug:
-        var: "{{ hostvars['AWS-USE1-TRANS-FW1'].untrust_ip}}"
+      
+    - name: Create a new cgw  
+      ec2_customer_gateway:
+        bgp_asn: '{{ item.bgp_asn }}'
+        ip_address: '{{ item.untrust_ip }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_access_key: '{{ aws_access_key }}'        
+        name: "{{ item.hostnmae }}-CGW"
+        region: '{{ region }}'
+      register: cgw
+      with_items:
+        - "{{ hostvars[transit_fw] }}"   
