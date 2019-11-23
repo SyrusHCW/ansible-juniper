@@ -68,7 +68,7 @@
         password: '{{ password }}'
         ip_address: '{{ item.panorama }}'
         template: '{{ item.template }}'
-        state: 'present' 
+        state: 'absent' 
         name: 'IKE-GATE-{{ host }}-{{ item.availability_zones[0] }}'
         version: 'ikev2'
         interface: '{{ item.untrust }}'
