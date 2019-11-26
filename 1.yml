@@ -183,3 +183,19 @@
         commit: false
       with_items:
         - "{{ hostvars[transit_fw_az1] }}"
+
+    - name: Create BGP Peer
+      panos_bgp_peer:
+        username: '{{ username }}'
+        password: '{{ password }}'
+        ip_address: '{{ item.panorama }}'
+        template: '{{ item.template }}'
+        peer_group: 'PG-AWS-DEV'
+        name: "{{ host }}"
+        enable: true
+        local_interface: 'ethernet1/1'
+        peer_address_ip: '10.1.1.1'
+        peer_as: '64512'
+        commit: false
+      with_items:
+        - "{{ hostvars[transit_fw_az1] }}"
