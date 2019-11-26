@@ -194,7 +194,7 @@
         name: "{{ host }}"
         vr_name: '{{ item.routing_instance }}'
         enable: true
-        local_interface: 'ethernet1/1'
+        local_interface: 'tunnel.{{ TunnelInterface0 }}'
         peer_address_ip: '10.1.1.1'
         peer_as: '64512'
         commit: false
