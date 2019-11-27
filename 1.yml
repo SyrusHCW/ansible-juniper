@@ -10,8 +10,10 @@
   tasks:
 
     - name: Create template variables
-      script: test1.py 
+      script: test1.py '{{ username }} {{ password }} {{ panorama }} {{ template }} {{ host }}
       register: python_variables
+      with_items:
+        - "{{ hostvars[transit_fw_az1] }}"        
 
     - name: Create a new cgw for AZ1
       ec2_customer_gateway:
