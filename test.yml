@@ -9,3 +9,7 @@
     - name: Palo Config
       script: test1.py 
       register: py_return
+
+    - name: Debug variables
+      debug:
+        var: py_return
