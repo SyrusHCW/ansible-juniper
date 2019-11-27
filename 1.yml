@@ -124,7 +124,7 @@
         ip_address: '{{ item.panorama }}'
         template: '{{ item.template }}'
         if_name: 'tunnel.{{ TunnelInterface0 }}'
-        ip: ['{{ python_variables.stdout_lines[1] }}']
+        ip: ['{{ python_variables.item.stdout_lines[1] }}']
         vr_name: '{{ item.routing_instance }}'
         zone_name: "{{ host }}"
         commit: False
