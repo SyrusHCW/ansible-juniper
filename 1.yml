@@ -15,6 +15,10 @@
       with_items:
         - "{{ hostvars[transit_fw_az1] }}"        
 
+    - name: Debug variables
+      debug:
+        var: python_variables.stdout_lines
+        
     - name: Create a new cgw for AZ1
       ec2_customer_gateway:
         bgp_asn: '{{ item.bgp_asn }}'
