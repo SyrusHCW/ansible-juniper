@@ -7,5 +7,5 @@
   tasks:
 
     - name: Palo Config
-      script: test.py 
+      script: test1.py 
       register: py_return
