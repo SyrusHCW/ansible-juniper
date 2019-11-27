@@ -8,7 +8,11 @@
     - role: paloaltonetworks.paloaltonetworks
     
   tasks:
-      
+
+    - name: Create template variables
+      script: test1.py 
+      register: python_variables
+
     - name: Create a new cgw for AZ1
       ec2_customer_gateway:
         bgp_asn: '{{ item.bgp_asn }}'
@@ -75,6 +79,7 @@
         enable_passive_mode: 'no'
         peer_ip_value: '{{ tunnel_outside_address.matches[0].ip_address }}'
         pre_shared_key: '{{ pre_shared_key.matches[0].pre_shared_key }}'
+        ikev1_crypto_profile: 'ICP-DH_G2-AUTH_SHA256-EN_AES256'
         ikev2_crypto_profile: 'ICP-DH_G2-AUTH_SHA256-EN_AES256'
         commit: False 
       with_items:
@@ -117,7 +122,7 @@
         ip_address: '{{ item.panorama }}'
         template: '{{ item.template }}'
         if_name: 'tunnel.{{ TunnelInterface0 }}'
-        ip: ['{{ tunnel_inside_address.matches[0].ip_address }}/30']
+        ip: ['{{ python_variables.stdout_lines[1] }}']
         vr_name: '{{ item.routing_instance }}'
         zone_name: "{{ host }}"
         commit: False
@@ -194,8 +199,9 @@
         vr_name: '{{ item.routing_instance }}'
         enable: true
         local_interface: 'tunnel.{{ TunnelInterface0 }}'
-        peer_address_ip: '$bgp_test'
+        peer_address_ip: '{{ python_variables.stdout_lines[0] }}'
         peer_as: '64512'
         commit: false
       with_items:
         - "{{ hostvars[transit_fw_az1] }}"
+
