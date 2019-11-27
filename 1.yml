@@ -128,7 +128,7 @@
         ip_address: '{{ item.panorama }}'
         template: '{{ item.template }}'
         if_name: 'tunnel.{{ TunnelInterface0 }}'
-        ip: ['{{ python_variables.item.stdout_lines[1] }}']
+        ip: ['{{ python_variables.results[0].stdout_lines[2] }}']
         vr_name: '{{ item.routing_instance }}'
         zone_name: "{{ host }}"
         commit: False
@@ -205,7 +205,7 @@
         vr_name: '{{ item.routing_instance }}'
         enable: true
         local_interface: 'tunnel.{{ TunnelInterface0 }}'
-        peer_address_ip: '{{ python_variables.stdout_lines[0] }}'
+        peer_address_ip: '{{ python_variables.results[0].stdout_lines[0] }}'
         peer_as: '64512'
         commit: false
       with_items:
