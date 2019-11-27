@@ -17,7 +17,7 @@
 
     - name: Debug variables
       debug:
-        var: python_variables
+        var: python_variables.results
         
     - name: Create a new cgw for AZ1
       ec2_customer_gateway:
