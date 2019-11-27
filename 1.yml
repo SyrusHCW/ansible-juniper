@@ -10,7 +10,7 @@
   tasks:
 
     - name: Create template variables
-      script: test1.py '{{ username }}' '{{ password }}' '{{ panorama }}' '{{ template }}' '{{ host }}'
+      script: test1.py '{{ username }}' '{{ password }}' '{{ panorama }}' '{{ item.template }}' '{{ host }}'
       register: python_variables
       with_items:
         - "{{ hostvars[transit_fw_az1] }}"        
