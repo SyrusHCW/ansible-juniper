@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import pan.xapi
 from pandevice import network
 from pandevice import panorama
