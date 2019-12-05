@@ -9,7 +9,7 @@
       debug:
         var: item
       with_items:
-        - "{{ ANSIBLE_NET_USERNAME }}"
+        - "{{ credvars }}"
 
 
 
