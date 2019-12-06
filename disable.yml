@@ -9,7 +9,7 @@
       debug:
         var: item
       with_items:
-        - "{{ AWS-API-TOKEN }}"
+        - "{{ ospf_md5 }}"
 
 
 
