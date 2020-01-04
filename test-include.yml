@@ -5,5 +5,4 @@
   
   tasks:
     - import_playbook: dops-windows.yml
-      vars:
-        host: '{{ host }}'
+
