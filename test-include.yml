@@ -4,6 +4,6 @@
   connection: local
   
   tasks:
-    - import_tasks: dops-windows.yml
+    - import_playbook: dops-windows.yml
       vars:
         host: '{{ host }}'
