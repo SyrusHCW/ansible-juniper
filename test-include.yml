@@ -1,5 +1,5 @@
 ---
-- hosts: '{{ host }}'
+- hosts: '{{ hosts }}'
   gather_facts: False
   connection: local
   
