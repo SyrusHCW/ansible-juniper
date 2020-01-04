@@ -3,6 +3,6 @@
   gather_facts: False
   connection: local
   
-  tasks:
-    - import_playbook: dops-windows.yml
+  - name: Test task
+    import_playbook: dops-windows.yml
 
