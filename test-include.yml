@@ -1,8 +1,3 @@
 ---
-- hosts: '{{ host }}'
-  gather_facts: False
-  connection: local
-  
-  - name: Test task
-    import_playbook: dops-windows.yml
+- import_playbook: dops-windows.yml
 
