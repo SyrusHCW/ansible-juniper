@@ -1,6 +1,6 @@
 ---
-- import_playbook: "{{ item.0.name }}.yml"
-  when: item.0.present == true
-  with_nested: 
+- import_playbook: "{{ item.name }}.yml"
+  when: item.present == true
+  with_items: 
     - '{{ security_groups }}'
 
