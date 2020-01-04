@@ -4,5 +4,6 @@
   connection: local
   
   tasks:
-    - name: Security Group for DOPS-WINDOWS
-      include: dops-windows.yml
+    - import_tasks: dops-windows.yml
+      vars:
+        host: '{{ host }}'
