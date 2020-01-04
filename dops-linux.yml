@@ -1,0 +1,20 @@
+---
+- hosts: '{{ host }}'
+  gather_facts: False
+  connection: local
+  
+  tasks:
+    - name: Security Group for DOPS-LINUX
+      ec2_group:
+        name: DOPS-LINUX
+        description: DOPS-LINUX
+        vpc_id: '{{ vpc_id }}'
+        region: '{{ region }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_access_key: '{{ aws_access_key }}'
+        rules:
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: 10.49.128.60/32
+            rule_desc: PHL-DU-DOROY1_SSH
