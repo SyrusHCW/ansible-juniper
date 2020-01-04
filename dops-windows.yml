@@ -1,0 +1,22 @@
+---
+- hosts: '{{ host }}'
+  gather_facts: False
+  connection: local
+  
+  tasks:
+    - name: Security Group for DOPS-WINDOWS
+      ec2_group:
+        name: DOPS-WINDOWS
+        description: DOPS-WINDOWS
+        vpc_id: '{{ vpc_id }}'
+        region: '{{ region }}'
+        aws_secret_key: '{{ aws_secret_key }}'
+        aws_access_key: '{{ aws_access_key }}'
+        rules:
+          - proto: tcp
+            from_port: 3389
+            to_port: 3389
+            cidr_ip: 10.49.128.60/32
+            rule_desc: PHL-DU-DOROY1_SSH
+
+      
