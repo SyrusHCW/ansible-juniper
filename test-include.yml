@@ -1,5 +1,5 @@
 ---
-- import_playbook: "{{ item.name }}.yml"
+- include: "{{ item.name }}.yml"
   when: item.present == true
   with_items: 
     - '{{ security_groups }}'
