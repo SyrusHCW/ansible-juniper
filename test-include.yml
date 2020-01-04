@@ -1,0 +1,8 @@
+---
+- hosts: '{{ host }}'
+  gather_facts: False
+  connection: local
+  
+  tasks:
+    - name: Security Group for DOPS-WINDOWS
+      include: dops-windows.yml
