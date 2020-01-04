@@ -1,0 +1,10 @@
+---
+- hosts: '{{ host }}'
+  connection: local
+
+  tasks:
+    - name: Update Security Group
+      script: ./aws-security-group.py '{{ region }}' '{{ item.name }}' '{{ env_name }}' '{{ aws_access_key }}' '{{ aws_secret_key }}' '{{ description }}' '{{ vpc_id }}'
+      when: item.present == true
+      with_items:
+        - "{{ security_groups }}"
