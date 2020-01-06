@@ -1,7 +1,10 @@
 ---
 - hosts: '{{ host }}'
   connection: local
-
+  
+  roles:
+    - azure.azure_preview_modules  
+  
   tasks:
     - name: Create virtual network gateway with bgp
         azure_rm_virtualnetworkgateway:
