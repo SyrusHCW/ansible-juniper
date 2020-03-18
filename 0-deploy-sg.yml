@@ -7,7 +7,7 @@
       tower_job_template:
         name: "0-include-2"
         job_type: "run"
-        inventory: "AMS"
+        inventory: "AWS"
         project: "ansible-juniper"
         playbook: "0-deploy-sg.yml"
         credential: "AWS-NET"
