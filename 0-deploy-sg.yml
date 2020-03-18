@@ -17,5 +17,5 @@
         tower_host: "https://192.168.1.235"
         validate_certs: no
         credential: null
-        extra_vars_path:
+        extra_vars:
           - host: ''
