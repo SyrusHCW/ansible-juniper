@@ -10,7 +10,7 @@
         inventory: "AWS"
         project: "ansible-juniper"
         playbook: "0-deploy-sg.yml"
-        credential: "AWS-NET"
+        credential: null
         state: "present"
         tower_username: "admin"
         tower_password: "admin"
@@ -18,3 +18,5 @@
         validate_certs: no
         credential: null
         extra_vars_path: template.yml
+        ask_extra_vars: yes
+        ask_credential: yes
