@@ -10,7 +10,7 @@
     subscription_id: "11111-11111-11111-11111"
 
   tasks:
-    - name: Add "{{ host_name }}"
+    - name: Add {{ host_name }}
       tower_host:
         name: "{{ host_name }}"
         inventory: "AWS"
