@@ -24,7 +24,7 @@
           proposed_cidrs: True
           staging_cidrs: True
           subway_cidrs: True
-      with_items:
+      with_nested:
         resource_group: "A01-MM2PE-RG"
         site: "a01-mm2pe-web01"
         
