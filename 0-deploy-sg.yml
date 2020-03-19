@@ -19,12 +19,13 @@
           name: "A01-MM2PE-WEB01"
           resource_group: "{{ item }}"
           region: "east-us"
-          resource_id: "/subscriptions/{{subscription_id}}/resourceGroups/A01-MM2PE-RG/providers/Microsoft.Web/sites/a01-mm2pe-web01"
+          resource_id: "/subscriptions/{{subscription_id}}/resourceGroups/{{ item }}/providers/Microsoft.Web/sites/{{ item.site }}"
           current_cidrs: True
           proposed_cidrs: True
           staging_cidrs: True
           subway_cidrs: True
       with_items:
-        "A01-MM2PE-RG"
+        resource_group: "A01-MM2PE-RG"
+        site: "a01-mm2pe-web01"
         
         
