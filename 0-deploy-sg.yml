@@ -24,7 +24,7 @@
           proposed_cidrs: True
           staging_cidrs: True
           subway_cidrs: True
-      with_nested:
+      with_items:
         "A01-MM2PE-RG"
         
         
