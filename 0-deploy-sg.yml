@@ -24,10 +24,11 @@
           resource_group: "{{ resource_group }}"
           region: "east-us"
           resource_id: "/subscriptions/{{subscription_id}}/resourceGroups/{{ resource_group }}/providers/Microsoft.Web/sites/{{ site_name }}"
-          current_cidrs: True
-          proposed_cidrs: True
-          staging_cidrs: True
-          subway_cidrs: True
+          firewall_cidrs:
+            current_cidrs: True
+            proposed_cidrs: True
+            staging_cidrs: True
+            subway_cidrs: True
           origin_url: "{{ origin_url }}"
           akamai_url: "{{ akamai_url }}"
       vars:
