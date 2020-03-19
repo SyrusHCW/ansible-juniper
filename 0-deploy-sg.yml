@@ -10,7 +10,7 @@
     subscription_id: "11111-11111-11111-11111"
 
   tasks:
-    - name: Add A01-MM2PE-WEB01
+    - name: Add "{{ host_name }}"
       tower_host:
         name: "{{ host_name }}"
         inventory: "AWS"
