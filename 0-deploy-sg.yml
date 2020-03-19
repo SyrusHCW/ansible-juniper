@@ -6,9 +6,13 @@
     subscription_id: "11111-11111-11111-11111"
 
   tasks:
+  vars:
+    subscription_id: "11111-11111-11111-11111"
+
+  tasks:
     - name: Add A01-MM2PE-WEB01
       tower_host:
-        name: A01-MM2PE-WEB01
+        name: "{{ host_name }}"
         inventory: "AWS"
         state: present
         tower_username: "{{ tower_username }}"
@@ -16,7 +20,7 @@
         tower_host: "{{ tower_host }}"
         validate_certs: "{{ validate_certs }}"
         variables:
-          name: "A01-MM2PE-WEB01"
+          name: "{{ host_name }}"
           resource_group: "{{ resource_group }}"
           region: "east-us"
           resource_id: "/subscriptions/{{subscription_id}}/resourceGroups/{{ resource_group }}/providers/Microsoft.Web/sites/{{ site_name }}"
@@ -24,8 +28,13 @@
           proposed_cidrs: True
           staging_cidrs: True
           subway_cidrs: True
+          origin_url: "{{ origin_url }}"
+          akamai_url: "{{ akamai_url }}"
       vars:
         resource_group: "A01-MM2PE-RG"
         site_name: "a01-mm2pe-web01"
+        host_name: "A01-MM2PE-WEB01"
+        origin_url: null
+        akamai_url: null
         
         
