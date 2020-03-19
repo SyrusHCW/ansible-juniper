@@ -48,5 +48,5 @@
         tower_host: "{{ tower_host }}"
         validate_certs: "{{ validate_certs }}"
         source: manual
-        instance_filters: A01-MM2PE-WEB01
+        source_vars: A01-MM2PE-WEB01
 
