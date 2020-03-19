@@ -3,9 +3,6 @@
   connection: local
   
   vars:
-    tower_username: "admin"
-    tower_password: "admin"
-    tower_host: "https://192.168.1.235"  
 
   tasks:
     - name: Add A01-MM2PE-WEB01
