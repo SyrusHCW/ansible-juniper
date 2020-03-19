@@ -25,6 +25,6 @@
           staging_cidrs: True
           subway_cidrs: True
       with_nested:
-        - "A01-MM2PE-RG"
+        "A01-MM2PE-RG"
         
         
