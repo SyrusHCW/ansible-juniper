@@ -6,7 +6,6 @@
     - name: Add A01-MM2PE-WEB01
       tower_host:
         name: A01-MM2PE-WEB01
-        description: 
         inventory: "AWS"
         state: present
         tower_username: "admin"
