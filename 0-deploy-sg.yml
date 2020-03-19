@@ -17,14 +17,14 @@
         validate_certs: "{{ validate_certs }}"
         variables:
           name: "A01-MM2PE-WEB01"
-          resource_group: "{{ item.resource_group }}"
+          resource_group: "{{ item.0 }}"
           region: "east-us"
           resource_id: "/subscriptions/{{subscription_id}}/resourceGroups/A01-MM2PE-RG/providers/Microsoft.Web/sites/a01-mm2pe-web01"
           current_cidrs: True
           proposed_cidrs: True
           staging_cidrs: True
           subway_cidrs: True
-      with_items:
-        resource_group: "A01-MM2PE-RG"
+      with_nested:
+        - "A01-MM2PE-RG"
         
         
